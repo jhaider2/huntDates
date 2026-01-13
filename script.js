@@ -295,7 +295,7 @@ const huntingData = [
     }
 ];
 
-// Helper function to parse date strings
+// Helper function to parse date strings.
 function parseDate(dateString) {
     return new Date(dateString);
 }

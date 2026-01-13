@@ -37,6 +37,14 @@ const huntingData = [
         applicationDeadline: "April 30, 2026",
         drawResults: "May 21, 2026"
     },
+    {
+        state: "wyoming",
+        stateName: "Wyoming",
+        residency: "Non-Resident",
+        species: "Antelope",
+        applicationDeadline: "June 2, 2026",
+        drawResults: "June 18, 2026"
+    },
 
     // Montana (Non-Resident)
     {
@@ -117,6 +125,22 @@ const huntingData = [
         applicationDeadline: "April 30, 2026",
         drawResults: "June 1, 2026"
     },
+    {
+        state: "idaho",
+        stateName: "Idaho - Controlled Hunts",
+        residency: "Non-Resident",
+        species: "Antelope",
+        applicationDeadline: "June 5, 2026",
+        drawResults: "July 7, 2026"
+    },
+    {
+        state: "idaho",
+        stateName: "Idaho - Spring Bear",
+        residency: "Non-Resident",
+        species: "Black Bear",
+        applicationDeadline: "February 15, 2026",
+        drawResults: "March 10, 2026"
+    },
 
     // Arizona (Non-Resident)
     {
@@ -134,6 +158,14 @@ const huntingData = [
         species: "Deer",
         applicationDeadline: "June 2, 2026",
         drawResults: "June 25, 2026"
+    },
+    {
+        state: "arizona",
+        stateName: "Arizona",
+        residency: "Non-Resident",
+        species: "Antelope",
+        applicationDeadline: "February 3, 2026",
+        drawResults: "March 15, 2026"
     },
 
     // New Mexico (Non-Resident)
@@ -204,6 +236,22 @@ const huntingData = [
         species: "Moose",
         applicationDeadline: "April 30, 2026",
         drawResults: "May 15, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Antelope",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 15, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Black Bear",
+        applicationDeadline: "February 24, 2026",
+        drawResults: "March 5, 2026"
     }
 ];
 

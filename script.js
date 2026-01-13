@@ -26,6 +26,24 @@ const huntingData = [
         drawResults: "May 21, 2026"
     },
 
+    // Montana (Non-Resident)
+    {
+        state: "montana",
+        stateName: "Montana",
+        residency: "Non-Resident",
+        species: "Elk",
+        applicationDeadline: "April 1, 2026",
+        drawResults: "April 15, 2026"
+    },
+    {
+        state: "montana",
+        stateName: "Montana",
+        residency: "Non-Resident",
+        species: "Deer",
+        applicationDeadline: "April 1, 2026",
+        drawResults: "April 15, 2026"
+    },
+
     // Nevada (Non-Resident)
     {
         state: "nevada",

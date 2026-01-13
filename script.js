@@ -1,3 +1,15 @@
+// State application URLs
+const stateUrls = {
+    wyoming: "https://wgfapps.wyo.gov/LoginPortal/Login1.aspx?return=http%3A//wgfd.wyo.gov/login-callback",
+    montana: "https://fwp.mt.gov/buyandapply",
+    nevada: "https://nevada.licensing.app/",
+    idaho: "https://gooutdoorsidaho.com",
+    arizona: "https://draw.azgfd.com/Home/",
+    newmexico: "https://onlinesales.wildlife.state.nm.us/",
+    colorado: "https://www.cpwshop.com/home.page",
+    utah: "https://www.utahdraws.com/internetsales"
+};
+
 // Hunting deadline data for 2026
 const huntingData = [
     // Wyoming (Non-Resident)
@@ -288,6 +300,9 @@ function displayDeadlines() {
                     <span class="label">Draw Results Posted:</span>
                     <span class="date">${item.drawResults}</span>
                 </div>
+                <a href="${stateUrls[item.state]}" target="_blank" class="apply-button">
+                    Apply Now →
+                </a>
             </div>
         `;
         container.appendChild(card);

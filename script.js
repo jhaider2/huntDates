@@ -45,6 +45,14 @@ const huntingData = [
         applicationDeadline: "June 2, 2026",
         drawResults: "June 18, 2026"
     },
+    {
+        state: "wyoming",
+        stateName: "Wyoming",
+        residency: "Non-Resident",
+        species: "Rocky Mountain Bighorn Sheep",
+        applicationDeadline: "April 30, 2026",
+        drawResults: "May 21, 2026"
+    },
 
     // Montana (Non-Resident)
     {
@@ -167,6 +175,14 @@ const huntingData = [
         applicationDeadline: "February 3, 2026",
         drawResults: "March 15, 2026"
     },
+    {
+        state: "arizona",
+        stateName: "Arizona",
+        residency: "Non-Resident",
+        species: "Desert Bighorn Sheep",
+        applicationDeadline: "June 2, 2026",
+        drawResults: "July 15, 2026"
+    },
 
     // New Mexico (Non-Resident)
     {
@@ -211,6 +227,14 @@ const huntingData = [
         applicationDeadline: "April 7, 2026",
         drawResults: "May 27, 2026"
     },
+    {
+        state: "colorado",
+        stateName: "Colorado",
+        residency: "Non-Resident",
+        species: "Rocky Mountain Bighorn Sheep",
+        applicationDeadline: "April 7, 2026",
+        drawResults: "May 27, 2026"
+    },
 
     // Utah (Resident)
     {
@@ -252,6 +276,22 @@ const huntingData = [
         species: "Black Bear",
         applicationDeadline: "February 24, 2026",
         drawResults: "March 5, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Rocky Mountain Bighorn Sheep",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 15, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Desert Bighorn Sheep",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 15, 2026"
     }
 ];
 

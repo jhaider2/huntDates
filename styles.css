@@ -134,6 +134,10 @@ header h1 {
     background-color: #f39c12;
 }
 
+.legend-dot.purple {
+    background-color: #9b59b6;
+}
+
 .legend-dot.red {
     background-color: #e74c3c;
 }
@@ -176,6 +180,10 @@ header h1 {
 
 .card-header.header-expired {
     background: #e74c3c;
+}
+
+.card-header.header-awaiting {
+    background: #9b59b6;
 }
 
 .card-header h2 {
@@ -237,6 +245,21 @@ header h1 {
 .apply-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-message {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-message.awaiting {
+    background: #f0e6f6;
+    color: #7d3c98;
+    border: 2px solid #9b59b6;
 }
 
 .no-results {

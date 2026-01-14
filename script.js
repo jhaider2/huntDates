@@ -201,6 +201,14 @@ const huntingData = [
         applicationDeadline: "March 19, 2026",
         drawResults: "April 23, 2026"
     },
+    {
+        state: "newmexico",
+        stateName: "New Mexico",
+        residency: "Non-Resident",
+        species: "Oryx",
+        applicationDeadline: "March 19, 2026",
+        drawResults: "April 23, 2026"
+    },
 
     // Colorado (Non-Resident)
     {
@@ -355,21 +363,31 @@ function displayDeadlines() {
 
     filteredData.forEach(item => {
         const deadlinePassed = isPastDate(item.applicationDeadline);
+        const resultsPassed = isPastDate(item.drawResults);
         const daysUntil = getDaysUntil(item.applicationDeadline);
         const isWithin30Days = daysUntil > 0 && daysUntil <= 30;
+        const isAwaitingResults = deadlinePassed && !resultsPassed;
 
         let headerClass = '';
         let countdownText = '';
+        let actionButton = '';
 
-        if (deadlinePassed) {
+        if (resultsPassed) {
             headerClass = 'header-expired';
             countdownText = ' (EXPIRED)';
+            actionButton = '';
+        } else if (isAwaitingResults) {
+            headerClass = 'header-awaiting';
+            countdownText = ' (CLOSED)';
+            actionButton = `<div class="status-message awaiting">⏳ Awaiting Results - Posted ${item.drawResults}</div>`;
         } else if (isWithin30Days) {
             headerClass = 'header-warning';
             countdownText = ` (${daysUntil} day${daysUntil === 1 ? '' : 's'} left)`;
+            actionButton = `<a href="${stateUrls[item.state]}" target="_blank" class="apply-button">Apply Now →</a>`;
         } else {
             headerClass = 'header-open';
             countdownText = ` (${daysUntil} days)`;
+            actionButton = `<a href="${stateUrls[item.state]}" target="_blank" class="apply-button">Apply Now →</a>`;
         }
 
         const card = document.createElement('div');
@@ -388,9 +406,7 @@ function displayDeadlines() {
                     <span class="label">Draw Results Posted:</span>
                     <span class="date">${item.drawResults}</span>
                 </div>
-                <a href="${stateUrls[item.state]}" target="_blank" class="apply-button">
-                    Apply Now →
-                </a>
+                ${actionButton}
             </div>
         `;
         container.appendChild(card);

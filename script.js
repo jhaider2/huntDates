@@ -42,14 +42,14 @@ const huntingData = [
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Antelope",
-        applicationDeadline: "June 2, 2026",
+        applicationDeadline: "June 1, 2026",
         drawResults: "June 18, 2026"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
-        species: "Rocky Mountain Bighorn Sheep",
+        species: "Bighorn Sheep-Rocky Mtn",
         applicationDeadline: "April 30, 2026",
         drawResults: "May 21, 2026"
     },
@@ -149,6 +149,30 @@ const huntingData = [
         applicationDeadline: "February 15, 2026",
         drawResults: "March 10, 2026"
     },
+    {
+        state: "idaho",
+        stateName: "Idaho - Controlled Hunts",
+        residency: "Non-Resident",
+        species: "Fall Bear",
+        applicationDeadline: "June 5, 2026",
+        drawResults: "July 7, 2026"
+    },
+    {
+        state: "idaho",
+        stateName: "Idaho - Controlled Hunts",
+        residency: "Non-Resident",
+        species: "Bighorn Sheep-Rocky Mtn",
+        applicationDeadline: "April 30, 2026",
+        drawResults: "June 1, 2026"
+    },
+    {
+        state: "idaho",
+        stateName: "Idaho - Controlled Hunts",
+        residency: "Non-Resident",
+        species: "Mountain Goat",
+        applicationDeadline: "April 30, 2026",
+        drawResults: "June 1, 2026"
+    },
 
     // Arizona (Non-Resident)
     {
@@ -179,7 +203,7 @@ const huntingData = [
         state: "arizona",
         stateName: "Arizona",
         residency: "Non-Resident",
-        species: "Desert Bighorn Sheep",
+        species: "Bighorn Sheep-Desert",
         applicationDeadline: "June 2, 2026",
         drawResults: "July 15, 2026"
     },
@@ -190,7 +214,7 @@ const huntingData = [
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "March 19, 2026",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
         drawResults: "April 23, 2026"
     },
     {
@@ -198,7 +222,7 @@ const huntingData = [
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "March 19, 2026",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
         drawResults: "April 23, 2026"
     },
     {
@@ -206,7 +230,7 @@ const huntingData = [
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Oryx",
-        applicationDeadline: "March 19, 2026",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
         drawResults: "April 23, 2026"
     },
 
@@ -239,7 +263,7 @@ const huntingData = [
         state: "colorado",
         stateName: "Colorado",
         residency: "Non-Resident",
-        species: "Rocky Mountain Bighorn Sheep",
+        species: "Bighorn Sheep-Rocky Mtn",
         applicationDeadline: "April 7, 2026",
         drawResults: "May 27, 2026"
     },
@@ -289,7 +313,7 @@ const huntingData = [
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
-        species: "Rocky Mountain Bighorn Sheep",
+        species: "Bighorn Sheep-Rocky Mtn",
         applicationDeadline: "April 23, 2026",
         drawResults: "May 15, 2026"
     },
@@ -297,7 +321,7 @@ const huntingData = [
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
-        species: "Desert Bighorn Sheep",
+        species: "Bighorn Sheep-Desert",
         applicationDeadline: "April 23, 2026",
         drawResults: "May 15, 2026"
     }
@@ -305,7 +329,9 @@ const huntingData = [
 
 // Helper function to parse date strings.
 function parseDate(dateString) {
-    return new Date(dateString);
+    // Extract date portion if string contains time info (e.g., "March 18, 2026 - 5pm MDT")
+    const datePortion = dateString.split(' - ')[0];
+    return new Date(datePortion);
 }
 
 // Helper function to check if a date has passed

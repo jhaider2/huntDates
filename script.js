@@ -274,24 +274,24 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Elk",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "May 13, 2026"
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Deer",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "May 13, 2026"
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Moose",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "May 15, 2026"
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
     },
     {
         state: "utah",
@@ -299,7 +299,7 @@ const huntingData = [
         residency: "Resident",
         species: "Antelope",
         applicationDeadline: "April 23, 2026",
-        drawResults: "May 15, 2026"
+        drawResults: "May 31, 2026"
     },
     {
         state: "utah",
@@ -315,7 +315,7 @@ const huntingData = [
         residency: "Resident",
         species: "Bighorn Sheep-Rocky Mtn",
         applicationDeadline: "April 23, 2026",
-        drawResults: "May 15, 2026"
+        drawResults: "May 31, 2026"
     },
     {
         state: "utah",
@@ -323,7 +323,7 @@ const huntingData = [
         residency: "Resident",
         species: "Bighorn Sheep-Desert",
         applicationDeadline: "April 23, 2026",
-        drawResults: "May 15, 2026"
+        drawResults: "May 31, 2026"
     }
 ];
 

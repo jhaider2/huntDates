@@ -215,7 +215,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Elk",
         applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 23, 2026"
+        drawResults: "April 22, 2026"
     },
     {
         state: "newmexico",
@@ -223,7 +223,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Deer",
         applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 23, 2026"
+        drawResults: "April 22, 2026"
     },
     {
         state: "newmexico",
@@ -231,7 +231,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Oryx",
         applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 23, 2026"
+        drawResults: "April 22, 2026"
     },
 
     // Colorado (Non-Resident)

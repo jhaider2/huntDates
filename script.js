@@ -233,6 +233,38 @@ const huntingData = [
         applicationDeadline: "March 18, 2026 - 5pm MDT",
         drawResults: "April 22, 2026"
     },
+    {
+        state: "newmexico",
+        stateName: "New Mexico",
+        residency: "Non-Resident",
+        species: "Barbary Sheep (Aoudad)",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
+        drawResults: "April 22, 2026"
+    },
+    {
+        state: "newmexico",
+        stateName: "New Mexico",
+        residency: "Non-Resident",
+        species: "Pronghorn",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
+        drawResults: "April 22, 2026"
+    },
+    {
+        state: "newmexico",
+        stateName: "New Mexico",
+        residency: "Non-Resident",
+        species: "Ibex",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
+        drawResults: "April 22, 2026"
+    },
+    {
+        state: "newmexico",
+        stateName: "New Mexico",
+        residency: "Non-Resident",
+        species: "Bighorn Sheep-Desert",
+        applicationDeadline: "March 18, 2026 - 5pm MDT",
+        drawResults: "April 22, 2026"
+    },
 
     // Colorado (Non-Resident)
     {
@@ -352,6 +384,46 @@ function getDaysUntil(dateString) {
     return diffDays;
 }
 
+// Update species dropdown based on selected state
+function updateSpeciesDropdown() {
+    const stateFilter = document.getElementById('state-filter').value;
+    const speciesDropdown = document.getElementById('species-filter');
+    const currentSelection = speciesDropdown.value;
+
+    // Get all unique species
+    const allSpecies = [...new Set(huntingData.map(item => item.species))].sort();
+
+    // Get species available in selected state
+    let availableSpecies = new Set();
+    if (stateFilter === 'all') {
+        availableSpecies = new Set(allSpecies);
+    } else {
+        huntingData
+            .filter(item => item.state === stateFilter)
+            .forEach(item => availableSpecies.add(item.species));
+    }
+
+    // Rebuild dropdown
+    speciesDropdown.innerHTML = '<option value="all">All Species</option>';
+    allSpecies.forEach(species => {
+        const option = document.createElement('option');
+        option.value = species;
+        option.textContent = species;
+        if (!availableSpecies.has(species)) {
+            option.disabled = true;
+            option.style.color = '#ccc';
+        }
+        speciesDropdown.appendChild(option);
+    });
+
+    // Restore selection if still valid, otherwise reset to 'all'
+    if (availableSpecies.has(currentSelection) || currentSelection === 'all') {
+        speciesDropdown.value = currentSelection;
+    } else {
+        speciesDropdown.value = 'all';
+    }
+}
+
 // Display deadlines
 function displayDeadlines() {
     const stateFilter = document.getElementById('state-filter').value;
@@ -444,10 +516,14 @@ function displayDeadlines() {
 }
 
 // Event listeners for filters
-document.getElementById('state-filter').addEventListener('change', displayDeadlines);
+document.getElementById('state-filter').addEventListener('change', function() {
+    updateSpeciesDropdown();
+    displayDeadlines();
+});
 document.getElementById('species-filter').addEventListener('change', displayDeadlines);
 document.getElementById('sort-filter').addEventListener('change', displayDeadlines);
 document.getElementById('hide-expired').addEventListener('change', displayDeadlines);
 
 // Initial display
+updateSpeciesDropdown();
 displayDeadlines();

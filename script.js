@@ -478,6 +478,10 @@ function displayDeadlines() {
             headerClass = 'header-awaiting';
             countdownText = ' (CLOSED)';
             actionButton = `<div class="status-message awaiting">⏳ Awaiting Results - Posted ${item.drawResults}</div>`;
+        } else if (daysUntil === 0) {
+            headerClass = 'header-warning';
+            countdownText = ' (DUE TODAY)';
+            actionButton = `<a href="${stateUrls[item.state]}" target="_blank" class="apply-button">Apply Now →</a>`;
         } else if (isWithin30Days) {
             headerClass = 'header-warning';
             countdownText = ` (${daysUntil} day${daysUntil === 1 ? '' : 's'} left)`;

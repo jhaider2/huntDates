@@ -356,6 +356,30 @@ const huntingData = [
         species: "Bighorn Sheep-Desert",
         applicationDeadline: "April 23, 2026",
         drawResults: "May 31, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Turkey",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Swan",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
+    },
+    {
+        state: "utah",
+        stateName: "Utah",
+        residency: "Resident",
+        species: "Sportsman Permits",
+        applicationDeadline: "April 23, 2026",
+        drawResults: "May 31, 2026"
     }
 ];
 
@@ -515,15 +539,33 @@ function displayDeadlines() {
     }
 }
 
-// Event listeners for filters
-document.getElementById('state-filter').addEventListener('change', function() {
+// Event listeners for filters - only add if elements exist (for index.html)
+const stateFilter = document.getElementById('state-filter');
+const speciesFilter = document.getElementById('species-filter');
+const sortFilter = document.getElementById('sort-filter');
+const hideExpired = document.getElementById('hide-expired');
+
+if (stateFilter) {
+    stateFilter.addEventListener('change', function() {
+        updateSpeciesDropdown();
+        displayDeadlines();
+    });
+}
+
+if (speciesFilter) {
+    speciesFilter.addEventListener('change', displayDeadlines);
+}
+
+if (sortFilter) {
+    sortFilter.addEventListener('change', displayDeadlines);
+}
+
+if (hideExpired) {
+    hideExpired.addEventListener('change', displayDeadlines);
+}
+
+// Initial display - only run if on main page
+if (stateFilter && speciesFilter) {
     updateSpeciesDropdown();
     displayDeadlines();
-});
-document.getElementById('species-filter').addEventListener('change', displayDeadlines);
-document.getElementById('sort-filter').addEventListener('change', displayDeadlines);
-document.getElementById('hide-expired').addEventListener('change', displayDeadlines);
-
-// Initial display
-updateSpeciesDropdown();
-displayDeadlines();
+}

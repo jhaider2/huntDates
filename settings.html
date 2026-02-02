@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Draw Tracker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back</a>
+    <div class="container">
+        <header>
+            <h1>Draw Tracker Settings</h1>
+            <p class="subtitle">Manage your notification preferences</p>
+        </header>
+
+        <div class="settings-container">
+            <!-- Account Info -->
+            <div class="settings-section">
+                <h2>Account Information</h2>
+                <p class="user-email">Email: <span id="user-email-display">Loading...</span></p>
+                <button id="logout-btn" class="secondary-button">Logout</button>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="settings-section">
+                <h2>Notification Settings</h2>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="email-notifications-toggle" checked>
+                        <span>Enable email notifications</span>
+                    </label>
+                </div>
+                <button id="save-notification-settings" class="auth-button">Save Notification Settings</button>
+            </div>
+
+            <!-- Draw Preferences -->
+            <div class="settings-section">
+                <h2>Draw Reminders</h2>
+                <p class="section-description">Select which state/species combinations you want to be reminded about:</p>
+
+                <div class="preference-filters">
+                    <select id="pref-state-filter">
+                        <option value="">Select a state...</option>
+                        <option value="arizona">Arizona</option>
+                        <option value="colorado">Colorado</option>
+                        <option value="idaho">Idaho</option>
+                        <option value="montana">Montana</option>
+                        <option value="nevada">Nevada</option>
+                        <option value="newmexico">New Mexico</option>
+                        <option value="utah">Utah</option>
+                        <option value="wyoming">Wyoming</option>
+                    </select>
+                    <select id="new-pref-days" class="notification-days-select">
+                        <option value="1">1 day before</option>
+                        <option value="2">2 days before</option>
+                        <option value="7">7 days before</option>
+                        <option value="30" selected>30 days before</option>
+                    </select>
+                    <button id="add-preference-btn" class="auth-button">Add Reminders</button>
+                </div>
+
+                <div id="species-checkboxes" class="species-checkboxes">
+                    <p class="no-state-selected">Select a state above to see available species</p>
+                </div>
+
+                <div id="user-preferences-list" class="preferences-list">
+                    <p class="loading-message">Loading your preferences...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

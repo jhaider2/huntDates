@@ -24,62 +24,63 @@ async function checkAuth() {
 // Update Draw Reminders UI based on notification toggle and subscription status
 function updateDrawRemindersUI(emailEnabled, isSubscribed) {
     const paywallNotice = document.getElementById('paywall-notice');
-    const drawRemindersSection = document.querySelector('.settings-section:nth-child(2)');
-    const prefFilters = document.querySelector('.preference-filters');
-    const speciesCheckboxes = document.getElementById('species-checkboxes');
-    const userPrefsList = document.getElementById('user-preferences-list');
+    const notificationSection = document.querySelector('.settings-section:nth-child(2)');
+    const drawRemindersSection = document.querySelector('.settings-section:nth-child(3)');
+    const accountSection = document.querySelector('.settings-section:nth-child(4)');
 
-    // If notifications are disabled, grey out draw reminders only
+    // If notifications are disabled, grey out everything except account info
     if (!emailEnabled) {
         paywallNotice.style.display = 'none';
+        if (notificationSection) {
+            notificationSection.style.opacity = '0.5';
+            notificationSection.style.pointerEvents = 'none';
+        }
         if (drawRemindersSection) {
             drawRemindersSection.style.opacity = '0.5';
             drawRemindersSection.style.pointerEvents = 'none';
+        }
+        // Keep account section enabled
+        if (accountSection) {
+            accountSection.style.opacity = '1';
+            accountSection.style.pointerEvents = 'auto';
         }
         return;
     }
 
     // Notifications are enabled, check subscription status
     if (!isSubscribed) {
-        // Show paywall, disable controls but keep paywall clickable
+        // Show paywall, grey out everything except paywall and account info
         paywallNotice.style.display = 'block';
         paywallNotice.style.pointerEvents = 'auto';
 
-        // Disable just the controls in draw reminders
+        if (notificationSection) {
+            notificationSection.style.opacity = '0.5';
+            notificationSection.style.pointerEvents = 'none';
+        }
         if (drawRemindersSection) {
-            drawRemindersSection.style.opacity = '1';
+            drawRemindersSection.style.opacity = '0.5';
+            drawRemindersSection.style.pointerEvents = 'none';
         }
-        if (prefFilters) {
-            prefFilters.style.opacity = '0.5';
-            prefFilters.style.pointerEvents = 'none';
-        }
-        if (speciesCheckboxes) {
-            speciesCheckboxes.style.opacity = '0.5';
-            speciesCheckboxes.style.pointerEvents = 'none';
-        }
-        if (userPrefsList) {
-            userPrefsList.style.opacity = '0.5';
-            userPrefsList.style.pointerEvents = 'none';
+        // Keep account section enabled
+        if (accountSection) {
+            accountSection.style.opacity = '1';
+            accountSection.style.pointerEvents = 'auto';
         }
     } else {
-        // Hide paywall, enable all controls
+        // Hide paywall, enable all sections
         paywallNotice.style.display = 'none';
+
+        if (notificationSection) {
+            notificationSection.style.opacity = '1';
+            notificationSection.style.pointerEvents = 'auto';
+        }
         if (drawRemindersSection) {
             drawRemindersSection.style.opacity = '1';
             drawRemindersSection.style.pointerEvents = 'auto';
         }
-
-        if (prefFilters) {
-            prefFilters.style.opacity = '1';
-            prefFilters.style.pointerEvents = 'auto';
-        }
-        if (speciesCheckboxes) {
-            speciesCheckboxes.style.opacity = '1';
-            speciesCheckboxes.style.pointerEvents = 'auto';
-        }
-        if (userPrefsList) {
-            userPrefsList.style.opacity = '1';
-            userPrefsList.style.pointerEvents = 'auto';
+        if (accountSection) {
+            accountSection.style.opacity = '1';
+            accountSection.style.pointerEvents = 'auto';
         }
     }
 }

@@ -21,6 +21,79 @@ async function checkAuth() {
     await loadUserPreferences();
 }
 
+// Update Draw Reminders UI based on notification toggle and subscription status
+function updateDrawRemindersUI(emailEnabled, isSubscribed) {
+    const paywallNotice = document.getElementById('paywall-notice');
+    const notificationSection = document.querySelector('.settings-section:nth-child(1)');
+    const drawRemindersSection = document.querySelector('.settings-section:nth-child(2)');
+    const prefFilters = document.querySelector('.preference-filters');
+    const speciesCheckboxes = document.getElementById('species-checkboxes');
+    const userPrefsList = document.getElementById('user-preferences-list');
+
+    // If notifications are disabled, grey out everything
+    if (!emailEnabled) {
+        paywallNotice.style.display = 'none';
+        if (notificationSection) {
+            notificationSection.style.opacity = '0.5';
+            notificationSection.style.pointerEvents = 'none';
+        }
+        if (drawRemindersSection) {
+            drawRemindersSection.style.opacity = '0.5';
+            drawRemindersSection.style.pointerEvents = 'none';
+        }
+        return;
+    }
+
+    // Notifications are enabled, check subscription status
+    if (!isSubscribed) {
+        // Show paywall, disable controls but keep paywall clickable
+        paywallNotice.style.display = 'block';
+        paywallNotice.style.pointerEvents = 'auto';
+        if (notificationSection) {
+            notificationSection.style.opacity = '0.5';
+            notificationSection.style.pointerEvents = 'none';
+        }
+
+        // Disable just the controls in draw reminders
+        if (prefFilters) {
+            prefFilters.style.opacity = '0.5';
+            prefFilters.style.pointerEvents = 'none';
+        }
+        if (speciesCheckboxes) {
+            speciesCheckboxes.style.opacity = '0.5';
+            speciesCheckboxes.style.pointerEvents = 'none';
+        }
+        if (userPrefsList) {
+            userPrefsList.style.opacity = '0.5';
+            userPrefsList.style.pointerEvents = 'none';
+        }
+    } else {
+        // Hide paywall, enable all controls
+        paywallNotice.style.display = 'none';
+        if (notificationSection) {
+            notificationSection.style.opacity = '1';
+            notificationSection.style.pointerEvents = 'auto';
+        }
+        if (drawRemindersSection) {
+            drawRemindersSection.style.opacity = '1';
+            drawRemindersSection.style.pointerEvents = 'auto';
+        }
+
+        if (prefFilters) {
+            prefFilters.style.opacity = '1';
+            prefFilters.style.pointerEvents = 'auto';
+        }
+        if (speciesCheckboxes) {
+            speciesCheckboxes.style.opacity = '1';
+            speciesCheckboxes.style.pointerEvents = 'auto';
+        }
+        if (userPrefsList) {
+            userPrefsList.style.opacity = '1';
+            userPrefsList.style.pointerEvents = 'auto';
+        }
+    }
+}
+
 // Load user profile and notification settings
 async function loadUserProfile() {
     const supabase = window.supabaseClient;
@@ -34,7 +107,8 @@ async function loadUserProfile() {
         if (error) throw error;
 
         if (data) {
-            document.getElementById('email-notifications-toggle').checked = data.email_notifications_enabled;
+            const emailEnabled = data.email_notifications_enabled;
+            document.getElementById('email-notifications-toggle').checked = emailEnabled;
 
             // Check subscription status
             const isSubscribed = data.subscription_status === 'active' || data.subscription_status === 'canceled';
@@ -42,62 +116,8 @@ async function loadUserProfile() {
             // Store subscription status globally
             window.isUserSubscribed = isSubscribed;
 
-            // Show/hide paywall
-            const paywallNotice = document.getElementById('paywall-notice');
-            const notificationSection = document.querySelector('.settings-section:nth-child(2)');
-            const drawRemindersSection = document.querySelector('.settings-section:nth-child(3)');
-
-            if (!isSubscribed) {
-                // Show paywall, disable controls but keep paywall clickable
-                paywallNotice.style.display = 'block';
-                paywallNotice.style.pointerEvents = 'auto';
-                if (notificationSection) {
-                    notificationSection.style.opacity = '0.5';
-                    notificationSection.style.pointerEvents = 'none';
-                }
-
-                // Disable just the controls, not the entire section
-                const prefFilters = document.querySelector('.preference-filters');
-                const speciesCheckboxes = document.getElementById('species-checkboxes');
-                const userPrefsList = document.getElementById('user-preferences-list');
-
-                if (prefFilters) {
-                    prefFilters.style.opacity = '0.5';
-                    prefFilters.style.pointerEvents = 'none';
-                }
-                if (speciesCheckboxes) {
-                    speciesCheckboxes.style.opacity = '0.5';
-                    speciesCheckboxes.style.pointerEvents = 'none';
-                }
-                if (userPrefsList) {
-                    userPrefsList.style.opacity = '0.5';
-                    userPrefsList.style.pointerEvents = 'none';
-                }
-            } else {
-                // Hide paywall, enable controls
-                paywallNotice.style.display = 'none';
-                if (notificationSection) {
-                    notificationSection.style.opacity = '1';
-                    notificationSection.style.pointerEvents = 'auto';
-                }
-
-                const prefFilters = document.querySelector('.preference-filters');
-                const speciesCheckboxes = document.getElementById('species-checkboxes');
-                const userPrefsList = document.getElementById('user-preferences-list');
-
-                if (prefFilters) {
-                    prefFilters.style.opacity = '1';
-                    prefFilters.style.pointerEvents = 'auto';
-                }
-                if (speciesCheckboxes) {
-                    speciesCheckboxes.style.opacity = '1';
-                    speciesCheckboxes.style.pointerEvents = 'auto';
-                }
-                if (userPrefsList) {
-                    userPrefsList.style.opacity = '1';
-                    userPrefsList.style.pointerEvents = 'auto';
-                }
-            }
+            // Update the UI based on notification toggle and subscription status
+            updateDrawRemindersUI(emailEnabled, isSubscribed);
         }
     } catch (error) {
         console.error('Error loading profile:', error);
@@ -283,9 +303,10 @@ async function loadUserPreferences() {
 }
 
 // Save notification settings
-document.getElementById('save-notification-settings').addEventListener('click', async () => {
+// Handle email notification toggle
+document.getElementById('email-notifications-toggle').addEventListener('change', async (e) => {
     const supabase = window.supabaseClient;
-    const emailEnabled = document.getElementById('email-notifications-toggle').checked;
+    const emailEnabled = e.target.checked;
 
     try {
         const { error } = await supabase
@@ -298,10 +319,13 @@ document.getElementById('save-notification-settings').addEventListener('click', 
 
         if (error) throw error;
 
-        alert('Notification settings saved!');
+        // Update the UI immediately
+        updateDrawRemindersUI(emailEnabled, window.isUserSubscribed);
     } catch (error) {
         alert('Error saving settings: ' + error.message);
         console.error('Error:', error);
+        // Revert the toggle on error
+        e.target.checked = !emailEnabled;
     }
 });
 

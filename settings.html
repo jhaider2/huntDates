@@ -21,7 +21,7 @@
             <div class="settings-section">
                 <h2>Account Information</h2>
                 <p class="user-email">Email: <span id="user-email-display">Loading...</span></p>
-                <button id="logout-btn" class="secondary-button">Logout</button>
+                <button id="logout-btn" class="logout-button">Logout</button>
             </div>
 
             <!-- Notification Settings -->
@@ -40,6 +40,13 @@
             <div class="settings-section">
                 <h2>Draw Reminders</h2>
                 <p class="section-description">Select which state/species combinations you want to be reminded about:</p>
+
+                <!-- Paywall Notice (hidden by default) -->
+                <div id="paywall-notice" class="paywall-notice" style="display: none;">
+                    <h3>🔒 Email Reminders Require Subscription</h3>
+                    <p>Subscribe to get email notifications for draw deadlines</p>
+                    <a href="subscribe.html" class="subscribe-link">Subscribe for $9.99/year</a>
+                </div>
 
                 <div class="preference-filters">
                     <select id="pref-state-filter">

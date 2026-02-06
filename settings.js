@@ -35,6 +35,69 @@ async function loadUserProfile() {
 
         if (data) {
             document.getElementById('email-notifications-toggle').checked = data.email_notifications_enabled;
+
+            // Check subscription status
+            const isSubscribed = data.subscription_status === 'active' || data.subscription_status === 'canceled';
+
+            // Store subscription status globally
+            window.isUserSubscribed = isSubscribed;
+
+            // Show/hide paywall
+            const paywallNotice = document.getElementById('paywall-notice');
+            const notificationSection = document.querySelector('.settings-section:nth-child(2)');
+            const drawRemindersSection = document.querySelector('.settings-section:nth-child(3)');
+
+            if (!isSubscribed) {
+                // Show paywall, disable controls but keep paywall clickable
+                paywallNotice.style.display = 'block';
+                paywallNotice.style.pointerEvents = 'auto';
+                if (notificationSection) {
+                    notificationSection.style.opacity = '0.5';
+                    notificationSection.style.pointerEvents = 'none';
+                }
+
+                // Disable just the controls, not the entire section
+                const prefFilters = document.querySelector('.preference-filters');
+                const speciesCheckboxes = document.getElementById('species-checkboxes');
+                const userPrefsList = document.getElementById('user-preferences-list');
+
+                if (prefFilters) {
+                    prefFilters.style.opacity = '0.5';
+                    prefFilters.style.pointerEvents = 'none';
+                }
+                if (speciesCheckboxes) {
+                    speciesCheckboxes.style.opacity = '0.5';
+                    speciesCheckboxes.style.pointerEvents = 'none';
+                }
+                if (userPrefsList) {
+                    userPrefsList.style.opacity = '0.5';
+                    userPrefsList.style.pointerEvents = 'none';
+                }
+            } else {
+                // Hide paywall, enable controls
+                paywallNotice.style.display = 'none';
+                if (notificationSection) {
+                    notificationSection.style.opacity = '1';
+                    notificationSection.style.pointerEvents = 'auto';
+                }
+
+                const prefFilters = document.querySelector('.preference-filters');
+                const speciesCheckboxes = document.getElementById('species-checkboxes');
+                const userPrefsList = document.getElementById('user-preferences-list');
+
+                if (prefFilters) {
+                    prefFilters.style.opacity = '1';
+                    prefFilters.style.pointerEvents = 'auto';
+                }
+                if (speciesCheckboxes) {
+                    speciesCheckboxes.style.opacity = '1';
+                    speciesCheckboxes.style.pointerEvents = 'auto';
+                }
+                if (userPrefsList) {
+                    userPrefsList.style.opacity = '1';
+                    userPrefsList.style.pointerEvents = 'auto';
+                }
+            }
         }
     } catch (error) {
         console.error('Error loading profile:', error);
@@ -76,10 +139,17 @@ async function loadUserPreferences() {
             const stateGroup = document.createElement('div');
             stateGroup.className = 'state-group';
 
+            // Check if all species in this state are completed
+            const statePrefs = groupedByState[state].filter(p => p.species !== 'ALL');
+            const allCompleted = statePrefs.length > 0 && statePrefs.every(p => p.completed);
+
             // Add state header
             const stateHeader = document.createElement('div');
             stateHeader.className = 'state-group-header';
-            stateHeader.textContent = formatStateName(state);
+            stateHeader.innerHTML = `
+                ${formatStateName(state)}
+                ${allCompleted ? '<span class="state-completed-badge">All Complete ✓</span>' : ''}
+            `;
             stateGroup.appendChild(stateHeader);
 
             // Add species items for this state
@@ -95,15 +165,28 @@ async function loadUserPreferences() {
                 prefItem.className = 'preference-item';
                 prefItem.innerHTML = `
                     <div class="preference-info">
-                        <strong>${speciesDisplay}</strong>
+                        <div class="species-header">
+                            <strong>${speciesDisplay}</strong>
+                            ${pref.completed
+                                ? '<span class="completed-checkmark">✓</span>'
+                                : `<button class="mark-done-btn" data-id="${pref.id}">Mark as done</button>`
+                            }
+                        </div>
                         <div class="preference-days-control">
-                            <span class="days-display" data-id="${pref.id}">${pref.notify_days_before} day${pref.notify_days_before === 1 ? '' : 's'} before - <span class="edit-link">Edit</span></span>
-                            <select class="days-dropdown" data-id="${pref.id}" style="display: none;">
-                                <option value="1" ${pref.notify_days_before === 1 ? 'selected' : ''}>1 day before</option>
-                                <option value="2" ${pref.notify_days_before === 2 ? 'selected' : ''}>2 days before</option>
-                                <option value="7" ${pref.notify_days_before === 7 ? 'selected' : ''}>7 days before</option>
-                                <option value="30" ${pref.notify_days_before === 30 ? 'selected' : ''}>30 days before</option>
-                            </select>
+                            <span class="days-display" data-id="${pref.id}" data-completed="${pref.completed}" data-original-days="${pref.notify_days_before}">
+                                ${pref.notify_days_before} day${pref.notify_days_before === 1 ? '' : 's'} before
+                                ${!pref.completed ? ' - <span class="edit-link">Edit</span>' : ''}
+                            </span>
+                            <div class="days-edit-container" data-id="${pref.id}" style="display: none;">
+                                <select class="days-dropdown" data-id="${pref.id}">
+                                    <option value="1" ${pref.notify_days_before === 1 ? 'selected' : ''}>1 day before</option>
+                                    <option value="2" ${pref.notify_days_before === 2 ? 'selected' : ''}>2 days before</option>
+                                    <option value="7" ${pref.notify_days_before === 7 ? 'selected' : ''}>7 days before</option>
+                                    <option value="30" ${pref.notify_days_before === 30 ? 'selected' : ''}>30 days before</option>
+                                </select>
+                                <button class="save-days-btn" data-id="${pref.id}" title="Save">💾</button>
+                                <button class="cancel-days-btn" data-id="${pref.id}" title="Cancel">✖</button>
+                            </div>
                         </div>
                     </div>
                     <button class="delete-pref-btn" data-id="${pref.id}" style="display: none;">Remove</button>
@@ -120,38 +203,62 @@ async function loadUserPreferences() {
             link.addEventListener('click', (e) => {
                 const prefId = e.target.parentElement.getAttribute('data-id');
                 const display = document.querySelector(`.days-display[data-id="${prefId}"]`);
-                const dropdown = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
+                const editContainer = document.querySelector(`.days-edit-container[data-id="${prefId}"]`);
                 const removeBtn = document.querySelector(`.delete-pref-btn[data-id="${prefId}"]`);
+                const markDoneBtn = document.querySelector(`.mark-done-btn[data-id="${prefId}"]`);
+                const isCompleted = display.getAttribute('data-completed') === 'true';
 
                 display.style.display = 'none';
-                dropdown.style.display = 'inline-block';
-                removeBtn.style.display = 'inline-block';
-                dropdown.focus();
+                editContainer.style.display = 'flex';
+
+                // Hide mark as done button when editing
+                if (markDoneBtn) {
+                    markDoneBtn.style.display = 'none';
+                }
+
+                // Only show remove button if not completed
+                if (!isCompleted) {
+                    removeBtn.style.display = 'inline-block';
+                }
             });
         });
 
-        // Add event listeners to days dropdowns
-        document.querySelectorAll('.days-dropdown').forEach(dropdown => {
-            dropdown.addEventListener('change', async (e) => {
+        // Add event listeners to save buttons
+        document.querySelectorAll('.save-days-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
                 const prefId = e.target.getAttribute('data-id');
-                const newDays = parseInt(e.target.value);
+                const dropdown = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
+                const newDays = parseInt(dropdown.value);
+
                 await updatePreferenceDays(prefId, newDays);
                 // Reload to show updated text
                 await loadUserPreferences();
             });
+        });
 
-            // Hide dropdown if user clicks away without changing
-            dropdown.addEventListener('blur', (e) => {
+        // Add event listeners to cancel buttons
+        document.querySelectorAll('.cancel-days-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 const prefId = e.target.getAttribute('data-id');
                 const display = document.querySelector(`.days-display[data-id="${prefId}"]`);
-                const dropdownEl = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
+                const editContainer = document.querySelector(`.days-edit-container[data-id="${prefId}"]`);
+                const dropdown = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
                 const removeBtn = document.querySelector(`.delete-pref-btn[data-id="${prefId}"]`);
+                const markDoneBtn = document.querySelector(`.mark-done-btn[data-id="${prefId}"]`);
+                const originalDays = display.getAttribute('data-original-days');
 
-                setTimeout(() => {
-                    dropdownEl.style.display = 'none';
-                    display.style.display = 'inline';
-                    removeBtn.style.display = 'none';
-                }, 200);
+                // Reset dropdown to original value
+                dropdown.value = originalDays;
+
+                // Hide edit container, show display
+                editContainer.style.display = 'none';
+                display.style.display = 'inline';
+                removeBtn.style.display = 'none';
+
+                // Show mark as done button again
+                if (markDoneBtn) {
+                    markDoneBtn.style.display = 'inline-block';
+                }
             });
         });
 
@@ -160,6 +267,14 @@ async function loadUserPreferences() {
             btn.addEventListener('click', async (e) => {
                 const prefId = e.target.getAttribute('data-id');
                 await deletePreference(prefId);
+            });
+        });
+
+        // Add event listeners to mark done buttons
+        document.querySelectorAll('.mark-done-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const prefId = e.target.getAttribute('data-id');
+                await updatePreferenceCompleted(prefId, true);
             });
         });
     } catch (error) {
@@ -258,6 +373,13 @@ document.getElementById('pref-state-filter').addEventListener('change', (e) => {
 
 // Add preferences (multiple species)
 document.getElementById('add-preference-btn').addEventListener('click', async () => {
+    // Check subscription status
+    if (!window.isUserSubscribed) {
+        alert('Please subscribe to set up email reminders.');
+        window.location.href = 'subscribe.html';
+        return;
+    }
+
     const supabase = window.supabaseClient;
     const state = document.getElementById('pref-state-filter').value;
     const notifyDays = parseInt(document.getElementById('new-pref-days').value);
@@ -329,6 +451,27 @@ async function updatePreferenceDays(prefId, newDays) {
         alert('Error updating days: ' + error.message);
         console.error('Error:', error);
         // Reload to revert the dropdown
+        await loadUserPreferences();
+    }
+}
+
+// Update preference completed status
+async function updatePreferenceCompleted(prefId, isCompleted) {
+    const supabase = window.supabaseClient;
+
+    try {
+        const { error } = await supabase
+            .from('user_preferences')
+            .update({ completed: isCompleted })
+            .eq('id', prefId);
+
+        if (error) throw error;
+
+        // Reload to show the checkmark
+        await loadUserPreferences();
+    } catch (error) {
+        alert('Error updating completion status: ' + error.message);
+        console.error('Error:', error);
         await loadUserPreferences();
     }
 }

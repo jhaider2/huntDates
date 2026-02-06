@@ -1,7 +1,75 @@
 // Authentication functionality with Supabase
 
-// Handle login form submission
+// Toggle between login and forgot password forms
+const forgotPasswordLink = document.getElementById('forgot-password-link');
+const backToLoginBtn = document.getElementById('back-to-login');
 const loginForm = document.getElementById('login-form');
+const forgotPasswordForm = document.getElementById('forgot-password-form');
+const authSubtitle = document.getElementById('auth-subtitle');
+
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        forgotPasswordForm.style.display = 'flex';
+        authSubtitle.textContent = 'Reset your password';
+        document.querySelector('.auth-divider').style.display = 'none';
+        document.querySelector('.signup-link').style.display = 'none';
+    });
+}
+
+if (backToLoginBtn) {
+    backToLoginBtn.addEventListener('click', () => {
+        forgotPasswordForm.style.display = 'none';
+        loginForm.style.display = 'flex';
+        authSubtitle.textContent = 'Sign in to your account';
+        document.querySelector('.auth-divider').style.display = 'block';
+        document.querySelector('.signup-link').style.display = 'block';
+    });
+}
+
+// Handle forgot password form submission
+if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const supabase = window.supabaseClient;
+
+        if (!supabase) {
+            alert('Error: Authentication system not loaded. Please refresh the page.');
+            return;
+        }
+
+        const email = document.getElementById('reset-email').value;
+
+        // Disable submit button
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+            const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: `${window.location.origin}/reset-password.html`,
+            });
+
+            if (error) throw error;
+
+            alert('Password reset link sent! Please check your email.');
+            // Go back to login form
+            backToLoginBtn.click();
+            document.getElementById('reset-email').value = '';
+        } catch (error) {
+            alert('Error sending reset link: ' + error.message);
+            console.error('Password reset error:', error);
+        } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Reset Link';
+        }
+    });
+}
+
+// Handle login form submission
 if (loginForm) {
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -31,7 +99,6 @@ if (loginForm) {
             if (error) throw error;
 
             // Success - redirect to settings page
-            alert('Login successful!');
             window.location.href = 'settings.html';
         } catch (error) {
             alert('Login failed: ' + error.message);

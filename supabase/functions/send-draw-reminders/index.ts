@@ -104,11 +104,12 @@ serve(async (req) => {
       return new Date(datePortion)
     }
 
-    // Get all users with email notifications enabled
+    // Get all users with email notifications enabled AND active subscription
     const { data: profiles, error: profileError } = await supabase
       .from('user_profiles')
-      .select('id')
+      .select('id, subscription_status')
       .eq('email_notifications_enabled', true)
+      .in('subscription_status', ['active', 'canceled'])
 
     if (profileError) throw profileError
 
@@ -120,11 +121,12 @@ serve(async (req) => {
       const { data: { user }, error: userError } = await supabase.auth.admin.getUserById(profile.id)
       if (userError || !user?.email) continue
 
-      // Get user's preferences
+      // Get user's preferences (only non-completed ones)
       const { data: preferences, error: prefError } = await supabase
         .from('user_preferences')
         .select('*')
         .eq('user_id', profile.id)
+        .eq('completed', false)
 
       if (prefError || !preferences || preferences.length === 0) continue
 
@@ -149,14 +151,29 @@ serve(async (req) => {
 
           // Check if we should send reminder
           if (daysUntil === pref.notify_days_before) {
-            if (!remindersByState[hunt.state]) {
-              remindersByState[hunt.state] = []
+            // Check if this reminder was already sent
+            const { data: existingReminder } = await supabase
+              .from('sent_reminders')
+              .select('id')
+              .eq('user_id', profile.id)
+              .eq('state', hunt.state)
+              .eq('species', hunt.species)
+              .eq('deadline', hunt.deadline)
+              .eq('notify_days_before', pref.notify_days_before)
+              .single()
+
+            // Only add reminder if it hasn't been sent before
+            if (!existingReminder) {
+              if (!remindersByState[hunt.state]) {
+                remindersByState[hunt.state] = []
+              }
+              remindersByState[hunt.state].push({
+                species: hunt.species,
+                deadline: hunt.deadline,
+                daysUntil,
+                notify_days_before: pref.notify_days_before
+              })
             }
-            remindersByState[hunt.state].push({
-              species: hunt.species,
-              deadline: hunt.deadline,
-              daysUntil
-            })
           }
         }
       }
@@ -278,6 +295,21 @@ serve(async (req) => {
 
         if (emailResponse.ok) {
           emailsSent++
+
+          // Record all sent reminders to prevent duplicates
+          for (const [state, reminders] of Object.entries(remindersByState)) {
+            for (const reminder of reminders) {
+              await supabase
+                .from('sent_reminders')
+                .insert({
+                  user_id: profile.id,
+                  state: state,
+                  species: reminder.species,
+                  deadline: reminder.deadline,
+                  notify_days_before: reminder.notify_days_before
+                })
+            }
+          }
         } else {
           const error = await emailResponse.text()
           console.error('Failed to send email:', error)

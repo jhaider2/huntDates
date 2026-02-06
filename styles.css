@@ -14,7 +14,7 @@ body {
 }
 
 .login-icon {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     width: 40px;
@@ -26,7 +26,7 @@ body {
     justify-content: center;
     color: white;
     transition: background 0.3s, transform 0.2s;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .login-icon:hover {
@@ -40,7 +40,7 @@ body {
 }
 
 .back-button {
-    position: fixed !important;
+    position: absolute !important;
     top: 20px !important;
     left: 20px !important;
     padding: 10px 20px;
@@ -50,7 +50,7 @@ body {
     border-radius: 8px;
     font-size: 0.9rem;
     transition: background 0.3s, transform 0.2s;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .back-button:hover {
@@ -388,7 +388,21 @@ footer a:hover {
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
+}
+
+.auth-form button[type="submit"] {
+    margin-top: 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.button-group button {
+    flex: 1;
 }
 
 .form-group {
@@ -414,6 +428,23 @@ footer a:hover {
 .form-group input:focus {
     outline: none;
     border-color: #3498db;
+}
+
+.forgot-password-link-container {
+    text-align: right;
+    margin-top: -10px;
+}
+
+.forgot-password-link {
+    color: #3498db;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
 }
 
 .auth-button {
@@ -542,7 +573,7 @@ footer a:hover {
 
 .secondary-button {
     padding: 10px 20px;
-    background: #e74c3c;
+    background: #95a5a6;
     color: white;
     border: none;
     border-radius: 8px;
@@ -553,6 +584,22 @@ footer a:hover {
 }
 
 .secondary-button:hover {
+    background: #7f8c8d;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.logout-button:hover {
     background: #c0392b;
 }
 
@@ -640,6 +687,21 @@ footer a:hover {
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.state-completed-badge {
+    background-color: #27ae60;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .species-container {
@@ -672,6 +734,48 @@ footer a:hover {
     font-size: 1rem;
 }
 
+.species-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.species-header strong {
+    flex: 1;
+}
+
+.mark-done-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.mark-done-btn:hover {
+    background-color: #2980b9;
+}
+
+.completed-checkmark {
+    background-color: #27ae60;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
 .preference-days-control {
     margin-top: 5px;
 }
@@ -692,6 +796,12 @@ footer a:hover {
     color: #2980b9;
 }
 
+.days-edit-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .days-dropdown {
     padding: 6px 10px;
     border: 2px solid #e0e0e0;
@@ -700,6 +810,36 @@ footer a:hover {
     cursor: pointer;
     background: white;
     transition: border-color 0.3s;
+}
+
+.save-days-btn,
+.cancel-days-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.save-days-btn {
+    color: #27ae60;
+}
+
+.save-days-btn:hover {
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+.cancel-days-btn {
+    color: #e74c3c;
+}
+
+.cancel-days-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
 }
 
 .days-dropdown:hover {
@@ -771,4 +911,146 @@ footer a:hover {
     .legend-item {
         font-size: 0.9rem;
     }
+}
+
+/* Subscription Page Styles */
+.subscribe-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.subscribe-container h1 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+.subscribe-container .subtitle {
+    color: #7f8c8d;
+    text-align: center;
+}
+
+.pricing-card {
+    margin-top: 30px;
+}
+
+.pricing-header {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.pricing-header h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+}
+
+.price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+}
+
+.price .amount {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.price .period {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.feature .checkmark {
+    color: #27ae60;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.subscribe-button {
+    width: 100%;
+    padding: 16px 24px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.subscribe-button:hover {
+    background: #229954;
+    transform: translateY(-2px);
+}
+
+.subscribe-button:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.secure-notice {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.paywall-notice {
+    background: #fff9e6;
+    border: 2px solid #f39c12;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.paywall-notice h3 {
+    color: #e67e22;
+    margin: 0 0 10px 0;
+}
+
+.paywall-notice p {
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.paywall-notice .subscribe-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: #27ae60;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.paywall-notice .subscribe-link:hover {
+    background: #229954;
 }

@@ -24,19 +24,14 @@ async function checkAuth() {
 // Update Draw Reminders UI based on notification toggle and subscription status
 function updateDrawRemindersUI(emailEnabled, isSubscribed) {
     const paywallNotice = document.getElementById('paywall-notice');
-    const notificationSection = document.querySelector('.settings-section:nth-child(1)');
     const drawRemindersSection = document.querySelector('.settings-section:nth-child(2)');
     const prefFilters = document.querySelector('.preference-filters');
     const speciesCheckboxes = document.getElementById('species-checkboxes');
     const userPrefsList = document.getElementById('user-preferences-list');
 
-    // If notifications are disabled, grey out everything
+    // If notifications are disabled, grey out draw reminders only
     if (!emailEnabled) {
         paywallNotice.style.display = 'none';
-        if (notificationSection) {
-            notificationSection.style.opacity = '0.5';
-            notificationSection.style.pointerEvents = 'none';
-        }
         if (drawRemindersSection) {
             drawRemindersSection.style.opacity = '0.5';
             drawRemindersSection.style.pointerEvents = 'none';
@@ -49,12 +44,11 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
         // Show paywall, disable controls but keep paywall clickable
         paywallNotice.style.display = 'block';
         paywallNotice.style.pointerEvents = 'auto';
-        if (notificationSection) {
-            notificationSection.style.opacity = '0.5';
-            notificationSection.style.pointerEvents = 'none';
-        }
 
         // Disable just the controls in draw reminders
+        if (drawRemindersSection) {
+            drawRemindersSection.style.opacity = '1';
+        }
         if (prefFilters) {
             prefFilters.style.opacity = '0.5';
             prefFilters.style.pointerEvents = 'none';
@@ -70,10 +64,6 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
     } else {
         // Hide paywall, enable all controls
         paywallNotice.style.display = 'none';
-        if (notificationSection) {
-            notificationSection.style.opacity = '1';
-            notificationSection.style.pointerEvents = 'auto';
-        }
         if (drawRemindersSection) {
             drawRemindersSection.style.opacity = '1';
             drawRemindersSection.style.pointerEvents = 'auto';

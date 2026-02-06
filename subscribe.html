@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Draw Tracker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <a href="settings.html" class="back-button">← Back</a>
+
+    <div class="container">
+        <div class="subscribe-container">
+            <header>
+                <h1>Unlock Email Reminders</h1>
+                <p class="subtitle">Never miss a draw deadline again</p>
+            </header>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h2>Annual Email Reminder Service</h2>
+                    <div class="price">
+                        <span class="amount">$9.99</span>
+                        <span class="period">/year</span>
+                    </div>
+                </div>
+
+                <div class="features-list">
+                    <div class="feature">
+                        <span class="checkmark">✓</span>
+                        <span>Email reminders for all draw deadlines</span>
+                    </div>
+                    <div class="feature">
+                        <span class="checkmark">✓</span>
+                        <span>Customize reminder timing (1-30 days before)</span>
+                    </div>
+                    <div class="feature">
+                        <span class="checkmark">✓</span>
+                        <span>Track multiple states and species</span>
+                    </div>
+                    <div class="feature">
+                        <span class="checkmark">✓</span>
+                        <span>Annual subscription - one payment per year</span>
+                    </div>
+                </div>
+
+                <button id="checkout-button" class="subscribe-button">Subscribe Now</button>
+
+                <p class="secure-notice">🔒 Secure payment powered by Stripe</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script>
+        // Initialize Stripe with your publishable key
+        const stripe = Stripe('pk_live_51SxYZsAB2XpVyENpQEuTO79Jr6K82D71Jj4WT9zx86j7G6tFVyFz781pN1nlVFr20fJApvUWtNFuguopZOr3Gerd00R3hoaBh2');
+
+        const checkoutButton = document.getElementById('checkout-button');
+
+        // Reset button state when page loads (in case user came back from Stripe)
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = 'Subscribe Now';
+
+        checkoutButton.addEventListener('click', async () => {
+            const supabase = window.supabaseClient;
+
+            // Get current user
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                alert('Please log in first');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            checkoutButton.disabled = true;
+            checkoutButton.textContent = 'Loading...';
+
+            try {
+                // Get the origin, fallback to huntdates.com if running locally (file://)
+                let origin = window.location.origin;
+                if (origin.startsWith('file://')) {
+                    origin = 'https://huntdates.com';
+                }
+
+                // Call your Supabase function to create a Stripe checkout session
+                const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+                    body: {
+                        userId: user.id,
+                        email: user.email,
+                        origin: origin
+                    }
+                });
+
+                if (error) throw error;
+
+                // Redirect to Stripe Checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: data.sessionId
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error creating checkout session: ' + error.message);
+                checkoutButton.disabled = false;
+                checkoutButton.textContent = 'Subscribe Now';
+            }
+        });
+    </script>
+</body>
+</html>

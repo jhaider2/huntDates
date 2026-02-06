@@ -28,28 +28,8 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
     const drawRemindersSection = document.querySelector('.settings-section:nth-child(3)');
     const accountSection = document.querySelector('.settings-section:nth-child(4)');
 
-    // If notifications are disabled, grey out everything except account info
-    if (!emailEnabled) {
-        paywallNotice.style.display = 'none';
-        if (notificationSection) {
-            notificationSection.style.opacity = '0.5';
-            notificationSection.style.pointerEvents = 'none';
-        }
-        if (drawRemindersSection) {
-            drawRemindersSection.style.opacity = '0.5';
-            drawRemindersSection.style.pointerEvents = 'none';
-        }
-        // Keep account section enabled
-        if (accountSection) {
-            accountSection.style.opacity = '1';
-            accountSection.style.pointerEvents = 'auto';
-        }
-        return;
-    }
-
-    // Notifications are enabled, check subscription status
+    // If not subscribed, show paywall and grey out everything except paywall and account
     if (!isSubscribed) {
-        // Show paywall, grey out everything except paywall and account info
         paywallNotice.style.display = 'block';
         paywallNotice.style.pointerEvents = 'auto';
 
@@ -66,10 +46,28 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
             accountSection.style.opacity = '1';
             accountSection.style.pointerEvents = 'auto';
         }
-    } else {
-        // Hide paywall, enable all sections
-        paywallNotice.style.display = 'none';
+        return;
+    }
 
+    // User is subscribed, hide paywall
+    paywallNotice.style.display = 'none';
+
+    // If notifications are disabled, grey out draw reminders only
+    if (!emailEnabled) {
+        if (notificationSection) {
+            notificationSection.style.opacity = '1';
+            notificationSection.style.pointerEvents = 'auto';
+        }
+        if (drawRemindersSection) {
+            drawRemindersSection.style.opacity = '0.5';
+            drawRemindersSection.style.pointerEvents = 'none';
+        }
+        if (accountSection) {
+            accountSection.style.opacity = '1';
+            accountSection.style.pointerEvents = 'auto';
+        }
+    } else {
+        // Everything enabled
         if (notificationSection) {
             notificationSection.style.opacity = '1';
             notificationSection.style.pointerEvents = 'auto';

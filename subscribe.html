@@ -81,10 +81,10 @@
             checkoutButton.textContent = 'Loading...';
 
             try {
-                // Get the origin, fallback to huntdates.com if running locally (file://)
+                // Get the origin, fallback to drawtracker.com if running locally (file://)
                 let origin = window.location.origin;
                 if (origin.startsWith('file://')) {
-                    origin = 'https://huntdates.com';
+                    origin = 'https://drawtracker.com';
                 }
 
                 // Call your Supabase function to create a Stripe checkout session

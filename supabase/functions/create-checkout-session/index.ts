@@ -60,9 +60,9 @@ serve(async (req) => {
     // Create Stripe Checkout Session using REST API
     let baseUrl = origin || req.headers.get('origin')
 
-    // Ensure baseUrl is a valid string, fallback to huntdates.com
+    // Ensure baseUrl is a valid string, fallback to drawtracker.com
     if (!baseUrl || typeof baseUrl !== 'string' || baseUrl === 'null' || baseUrl === 'undefined') {
-      baseUrl = 'https://huntdates.com'
+      baseUrl = 'https://drawtracker.com'
     }
 
     // Make sure baseUrl starts with http:// or https://

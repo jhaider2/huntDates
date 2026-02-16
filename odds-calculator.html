@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utah Draw Odds Calculator - Draw Tracker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <a href="settings.html" class="back-button">← Back</a>
+
+    <div class="container">
+        <header>
+            <h1>Utah Draw Odds Calculator</h1>
+            <p class="subtitle">Calculate your drawing odds for Utah big game hunts</p>
+            <p class="disclaimer">⚠️ Data based on 2025 draw statistics. Actual odds may vary.</p>
+        </header>
+
+        <!-- Paywall Notice (hidden by default) -->
+        <div id="paywall-notice" class="paywall-notice" style="display: none;">
+            <h3>🔒 Draw Odds Calculator Requires Subscription</h3>
+            <p>Subscribe to access the Utah draw odds calculator and improve your hunting success</p>
+            <a href="subscribe.html" class="subscribe-link">Subscribe for $9.99/year</a>
+        </div>
+
+        <div id="calculator-content" class="odds-calculator-container">
+            <!-- Search Filters -->
+            <div class="search-section">
+                <h2>Search Criteria</h2>
+
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label for="species-select">Species</label>
+                        <select id="species-select" class="filter-select">
+                            <option value="">Select Species...</option>
+                            <option value="Elk">Elk</option>
+                            <option value="Deer">Deer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit-filter">Unit</label>
+                        <select id="unit-filter" class="filter-select">
+                            <option value="">All Units</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bonus-points-input">Your Bonus Points</label>
+                        <input type="number" id="bonus-points-input" min="0" max="32" value="0" class="filter-input">
+                    </div>
+                </div>
+
+                <button id="search-btn" class="auth-button">Search Odds</button>
+                <button id="clear-btn" class="secondary-button">Clear</button>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="results-section" style="display: none;">
+                <h2>Draw Odds Results</h2>
+                <div id="results-container"></div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="no-results-message" style="display: none;">
+                <p>No odds data found for your search criteria.</p>
+                <p class="help-text">Try adjusting your filters or check back later as we continue to add more data.</p>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading-message" style="display: none;">
+                <p>Calculating odds...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="odds-calculator.js"></script>
+</body>
+</html>

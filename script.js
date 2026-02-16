@@ -7,7 +7,9 @@ const stateUrls = {
     arizona: "https://draw.azgfd.com/Home/",
     newmexico: "https://onlinesales.wildlife.state.nm.us/",
     colorado: "https://www.cpwshop.com/home.page",
-    utah: "https://www.utahdraws.com/internetsales"
+    utah: "https://www.utahdraws.com/internetsales",
+    oregon: "https://myodfw.com/",
+    kansas: "https://license.gooutdoorskansas.gov/Licensing/CustomerLookup.aspx"
 };
 //comment
 // Hunting deadline data for 2026
@@ -26,6 +28,14 @@ const huntingData = [
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Deer",
+        applicationDeadline: "June 1, 2026",
+        drawResults: "June 18, 2026"
+    },
+    {
+        state: "wyoming",
+        stateName: "Wyoming",
+        residency: "Non-Resident",
+        species: "Whitetail Deer",
         applicationDeadline: "June 1, 2026",
         drawResults: "June 18, 2026"
     },
@@ -71,6 +81,14 @@ const huntingData = [
         applicationDeadline: "April 1, 2026",
         drawResults: "April 15, 2026"
     },
+    {
+        state: "montana",
+        stateName: "Montana",
+        residency: "Non-Resident",
+        species: "Whitetail Deer",
+        applicationDeadline: "April 1, 2026",
+        drawResults: "April 15, 2026"
+    },
 
     // Nevada (Non-Resident)
     {
@@ -107,6 +125,14 @@ const huntingData = [
         applicationDeadline: "December 15, 2025",
         drawResults: "January 6, 2026"
     },
+    {
+        state: "idaho",
+        stateName: "Idaho - General Season",
+        residency: "Non-Resident",
+        species: "Whitetail Deer",
+        applicationDeadline: "December 15, 2025",
+        drawResults: "January 6, 2026"
+    },
 
     // Idaho (Non-Resident) - Controlled Hunts
     {
@@ -122,6 +148,14 @@ const huntingData = [
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Deer",
+        applicationDeadline: "June 5, 2026",
+        drawResults: "July 7, 2026"
+    },
+    {
+        state: "idaho",
+        stateName: "Idaho - Controlled Hunts",
+        residency: "Non-Resident",
+        species: "Whitetail Deer",
         applicationDeadline: "June 5, 2026",
         drawResults: "July 7, 2026"
     },
@@ -298,6 +332,34 @@ const huntingData = [
         species: "Bighorn Sheep-Rocky Mtn",
         applicationDeadline: "April 7, 2026",
         drawResults: "May 27, 2026"
+    },
+
+    // Oregon (Non-Resident)
+    {
+        state: "oregon",
+        stateName: "Oregon",
+        residency: "Non-Resident",
+        species: "Elk",
+        applicationDeadline: "May 15, 2026",
+        drawResults: "June 15, 2026"
+    },
+    {
+        state: "oregon",
+        stateName: "Oregon",
+        residency: "Non-Resident",
+        species: "Deer",
+        applicationDeadline: "May 15, 2026",
+        drawResults: "June 15, 2026"
+    },
+
+    // Kansas (Non-Resident)
+    {
+        state: "kansas",
+        stateName: "Kansas",
+        residency: "Non-Resident",
+        species: "Whitetail Deer",
+        applicationDeadline: "April 1, 2026",
+        drawResults: "June 1, 2026"
     },
 
     // Utah (Resident)

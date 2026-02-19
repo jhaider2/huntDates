@@ -29,6 +29,8 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
     const accountSection = document.querySelector('.settings-section:nth-child(4)');
 
     // If not subscribed, show paywall and grey out everything except paywall and account
+    // TEMPORARILY DISABLED
+    /*
     if (!isSubscribed) {
         paywallNotice.style.display = 'block';
         paywallNotice.style.pointerEvents = 'auto';
@@ -48,6 +50,7 @@ function updateDrawRemindersUI(emailEnabled, isSubscribed) {
         }
         return;
     }
+    */
 
     // User is subscribed, hide paywall
     paywallNotice.style.display = 'none';
@@ -387,11 +390,14 @@ document.getElementById('pref-state-filter').addEventListener('change', (e) => {
 // Add preferences (multiple species)
 document.getElementById('add-preference-btn').addEventListener('click', async () => {
     // Check subscription status
+    // TEMPORARILY DISABLED
+    /*
     if (!window.isUserSubscribed) {
         alert('Please subscribe to set up email reminders.');
         window.location.href = 'subscribe.html';
         return;
     }
+    */
 
     const supabase = window.supabaseClient;
     const state = document.getElementById('pref-state-filter').value;

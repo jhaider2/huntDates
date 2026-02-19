@@ -25,11 +25,14 @@ async function checkAuth() {
     isSubscribed = profile && (profile.subscription_status === 'active' || profile.subscription_status === 'canceled');
 
     // Show paywall if not subscribed
+    // TEMPORARILY DISABLED
+    /*
     if (!isSubscribed) {
         document.getElementById('paywall-notice').style.display = 'block';
         document.getElementById('calculator-content').style.opacity = '0.5';
         document.getElementById('calculator-content').style.pointerEvents = 'none';
     }
+    */
 
     return isSubscribed;
 }

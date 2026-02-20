@@ -96,7 +96,7 @@ const huntingData = [
         stateName: "Nevada",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "May 7, 2026",
+        applicationDeadline: "May 13, 2026 - 11pm PDT",
         drawResults: "May 29, 2026"
     },
     {
@@ -104,7 +104,7 @@ const huntingData = [
         stateName: "Nevada",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "May 7, 2026",
+        applicationDeadline: "May 13, 2026 - 11pm PDT",
         drawResults: "May 29, 2026"
     },
 

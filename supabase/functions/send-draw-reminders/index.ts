@@ -51,12 +51,12 @@ serve(async (req) => {
       { state: "montana", stateDisplay: "Montana", species: "Mountain Goat", deadline: "March 15, 2026", results: "May 1, 2026" },
 
       // Nevada
-      { state: "nevada", stateDisplay: "Nevada", species: "Elk", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "nevada", stateDisplay: "Nevada", species: "Deer", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "nevada", stateDisplay: "Nevada", species: "Antelope", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Desert", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Rocky Mtn", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "nevada", stateDisplay: "Nevada", species: "Mountain Goat", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Elk", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Deer", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Antelope", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Desert", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Rocky Mtn", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Mountain Goat", deadline: "May 13, 2026 - 11pm PDT", results: "May 29, 2026" },
 
       // Arizona
       { state: "arizona", stateDisplay: "Arizona", species: "Elk", deadline: "June 10, 2026", results: "July 1, 2026" },

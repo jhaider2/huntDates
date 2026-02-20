@@ -884,6 +884,53 @@ footer a:hover {
     padding: 20px;
 }
 
+/* Reminder badges for multiple intervals */
+.reminders-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.reminder-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.reminder-days {
+    white-space: nowrap;
+}
+
+.remove-reminder-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.remove-reminder-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
 @media (max-width: 768px) {
     header h1 {
         font-size: 2.5rem;

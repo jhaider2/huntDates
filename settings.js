@@ -137,13 +137,18 @@ async function loadUserPreferences() {
 
         listContainer.innerHTML = '';
 
-        // Group preferences by state
+        // Group preferences by state, then by species
         const groupedByState = {};
         data.forEach(pref => {
+            if (pref.species === 'ALL') return; // Skip "ALL" species
+
             if (!groupedByState[pref.state]) {
-                groupedByState[pref.state] = [];
+                groupedByState[pref.state] = {};
             }
-            groupedByState[pref.state].push(pref);
+            if (!groupedByState[pref.state][pref.species]) {
+                groupedByState[pref.state][pref.species] = [];
+            }
+            groupedByState[pref.state][pref.species].push(pref);
         });
 
         // Create a group for each state
@@ -152,8 +157,8 @@ async function loadUserPreferences() {
             stateGroup.className = 'state-group';
 
             // Check if all species in this state are completed
-            const statePrefs = groupedByState[state].filter(p => p.species !== 'ALL');
-            const allCompleted = statePrefs.length > 0 && statePrefs.every(p => p.completed);
+            const allSpeciesPrefs = Object.values(groupedByState[state]).flat();
+            const allCompleted = allSpeciesPrefs.length > 0 && allSpeciesPrefs.every(p => p.completed);
 
             // Add state header
             const stateHeader = document.createElement('div');
@@ -168,41 +173,36 @@ async function loadUserPreferences() {
             const speciesContainer = document.createElement('div');
             speciesContainer.className = 'species-container';
 
-            groupedByState[state].forEach(pref => {
-                // Skip "ALL" species from displaying as individual reminders
-                if (pref.species === 'ALL') return;
+            // For each species in this state
+            Object.keys(groupedByState[state]).forEach(species => {
+                const speciesPrefs = groupedByState[state][species];
+                const allRemindersCompleted = speciesPrefs.every(p => p.completed);
 
-                const speciesDisplay = pref.species;
                 const prefItem = document.createElement('div');
                 prefItem.className = 'preference-item';
+
+                // Build the reminders list (sorted by days)
+                const sortedPrefs = speciesPrefs.sort((a, b) => b.notify_days_before - a.notify_days_before);
+                const remindersHTML = sortedPrefs.map(pref => `
+                    <div class="reminder-badge" data-id="${pref.id}">
+                        <span class="reminder-days">${pref.notify_days_before} day${pref.notify_days_before === 1 ? '' : 's'}</span>
+                        ${!pref.completed ? '<button class="remove-reminder-btn" data-id="${pref.id}" title="Remove this reminder">×</button>' : ''}
+                    </div>
+                `).join('');
+
                 prefItem.innerHTML = `
                     <div class="preference-info">
                         <div class="species-header">
-                            <strong>${speciesDisplay}</strong>
-                            ${pref.completed
+                            <strong>${species}</strong>
+                            ${allRemindersCompleted
                                 ? '<span class="completed-checkmark">✓</span>'
-                                : `<button class="mark-done-btn" data-id="${pref.id}">Mark as done</button>`
+                                : `<button class="mark-done-btn" data-species="${species}" data-state="${state}">Mark as done</button>`
                             }
                         </div>
-                        <div class="preference-days-control">
-                            <span class="days-display" data-id="${pref.id}" data-completed="${pref.completed}" data-original-days="${pref.notify_days_before}">
-                                ${pref.notify_days_before} day${pref.notify_days_before === 1 ? '' : 's'} before
-                                ${!pref.completed ? ' - <span class="edit-link">Edit</span>' : ''}
-                            </span>
-                            <div class="days-edit-container" data-id="${pref.id}" style="display: none;">
-                                <select class="days-dropdown" data-id="${pref.id}">
-                                    <option value="1" ${pref.notify_days_before === 1 ? 'selected' : ''}>1 day before</option>
-                                    <option value="2" ${pref.notify_days_before === 2 ? 'selected' : ''}>2 days before</option>
-                                    <option value="7" ${pref.notify_days_before === 7 ? 'selected' : ''}>7 days before</option>
-                                    <option value="18" ${pref.notify_days_before === 18 ? 'selected' : ''}>18 days before</option>
-                                    <option value="30" ${pref.notify_days_before === 30 ? 'selected' : ''}>30 days before</option>
-                                </select>
-                                <button class="save-days-btn" data-id="${pref.id}" title="Save">💾</button>
-                                <button class="cancel-days-btn" data-id="${pref.id}" title="Cancel">✖</button>
-                            </div>
+                        <div class="reminders-list">
+                            ${remindersHTML}
                         </div>
                     </div>
-                    <button class="delete-pref-btn" data-id="${pref.id}" style="display: none;">Remove</button>
                 `;
                 speciesContainer.appendChild(prefItem);
             });
@@ -211,83 +211,40 @@ async function loadUserPreferences() {
             listContainer.appendChild(stateGroup);
         });
 
-        // Add event listeners to edit links
-        document.querySelectorAll('.edit-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const prefId = e.target.parentElement.getAttribute('data-id');
-                const display = document.querySelector(`.days-display[data-id="${prefId}"]`);
-                const editContainer = document.querySelector(`.days-edit-container[data-id="${prefId}"]`);
-                const removeBtn = document.querySelector(`.delete-pref-btn[data-id="${prefId}"]`);
-                const markDoneBtn = document.querySelector(`.mark-done-btn[data-id="${prefId}"]`);
-                const isCompleted = display.getAttribute('data-completed') === 'true';
-
-                display.style.display = 'none';
-                editContainer.style.display = 'flex';
-
-                // Hide mark as done button when editing
-                if (markDoneBtn) {
-                    markDoneBtn.style.display = 'none';
-                }
-
-                // Only show remove button if not completed
-                if (!isCompleted) {
-                    removeBtn.style.display = 'inline-block';
-                }
-            });
-        });
-
-        // Add event listeners to save buttons
-        document.querySelectorAll('.save-days-btn').forEach(btn => {
+        // Add event listeners to remove individual reminder buttons
+        document.querySelectorAll('.remove-reminder-btn').forEach(btn => {
             btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
                 const prefId = e.target.getAttribute('data-id');
-                const dropdown = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
-                const newDays = parseInt(dropdown.value);
-
-                await updatePreferenceDays(prefId, newDays);
-                // Reload to show updated text
-                await loadUserPreferences();
-            });
-        });
-
-        // Add event listeners to cancel buttons
-        document.querySelectorAll('.cancel-days-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const prefId = e.target.getAttribute('data-id');
-                const display = document.querySelector(`.days-display[data-id="${prefId}"]`);
-                const editContainer = document.querySelector(`.days-edit-container[data-id="${prefId}"]`);
-                const dropdown = document.querySelector(`.days-dropdown[data-id="${prefId}"]`);
-                const removeBtn = document.querySelector(`.delete-pref-btn[data-id="${prefId}"]`);
-                const markDoneBtn = document.querySelector(`.mark-done-btn[data-id="${prefId}"]`);
-                const originalDays = display.getAttribute('data-original-days');
-
-                // Reset dropdown to original value
-                dropdown.value = originalDays;
-
-                // Hide edit container, show display
-                editContainer.style.display = 'none';
-                display.style.display = 'inline';
-                removeBtn.style.display = 'none';
-
-                // Show mark as done button again
-                if (markDoneBtn) {
-                    markDoneBtn.style.display = 'inline-block';
+                if (confirm('Remove this reminder?')) {
+                    await deletePreference(prefId);
                 }
             });
         });
 
-        // Add event listeners to delete buttons
-        document.querySelectorAll('.delete-pref-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const prefId = e.target.getAttribute('data-id');
-                await deletePreference(prefId);
-            });
-        });
-
-        // Add event listeners to mark done buttons
+        // Add event listeners to mark done buttons (marks ALL reminders for that species as done)
         document.querySelectorAll('.mark-done-btn').forEach(button => {
             button.addEventListener('click', async (e) => {
-                const prefId = e.target.getAttribute('data-id');
-                await updatePreferenceCompleted(prefId, true);
+                const species = e.target.getAttribute('data-species');
+                const state = e.target.getAttribute('data-state');
+
+                if (confirm(`Mark all ${species} reminders for ${formatStateName(state)} as done?`)) {
+                    // Get all preference IDs for this state/species combination
+                    const { data: prefsToComplete } = await supabase
+                        .from('user_preferences')
+                        .select('id')
+                        .eq('user_id', currentUser.id)
+                        .eq('state', state)
+                        .eq('species', species);
+
+                    // Mark each one as completed
+                    for (const pref of prefsToComplete || []) {
+                        await updatePreferenceCompleted(pref.id, true);
+                    }
+
+                    // Reload to show changes
+                    await loadUserPreferences();
+                }
             });
         });
     } catch (error) {
@@ -420,17 +377,18 @@ document.getElementById('add-preference-btn').addEventListener('click', async ()
     }
 
     try {
-        // Check for existing preferences first
+        // Check for existing preferences with the same days setting
         const { data: existingPrefs } = await supabase
             .from('user_preferences')
             .select('species')
             .eq('user_id', currentUser.id)
             .eq('state', state)
+            .eq('notify_days_before', notifyDays)
             .in('species', selectedSpecies);
 
         if (existingPrefs && existingPrefs.length > 0) {
             const existingSpecies = existingPrefs.map(p => p.species).join(', ');
-            alert(`You already have reminders set for: ${existingSpecies}\n\nTo change the notification timing, use the "Edit" button next to the existing reminder.`);
+            alert(`You already have a ${notifyDays}-day reminder for: ${existingSpecies}\n\nTo add a reminder at a DIFFERENT interval (e.g., 7 days, 2 days, etc.), change the days dropdown above and try again.`);
             return;
         }
 

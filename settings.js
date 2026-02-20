@@ -194,6 +194,7 @@ async function loadUserPreferences() {
                                     <option value="1" ${pref.notify_days_before === 1 ? 'selected' : ''}>1 day before</option>
                                     <option value="2" ${pref.notify_days_before === 2 ? 'selected' : ''}>2 days before</option>
                                     <option value="7" ${pref.notify_days_before === 7 ? 'selected' : ''}>7 days before</option>
+                                    <option value="18" ${pref.notify_days_before === 18 ? 'selected' : ''}>18 days before</option>
                                     <option value="30" ${pref.notify_days_before === 30 ? 'selected' : ''}>30 days before</option>
                                 </select>
                                 <button class="save-days-btn" data-id="${pref.id}" title="Save">💾</button>
@@ -419,6 +420,20 @@ document.getElementById('add-preference-btn').addEventListener('click', async ()
     }
 
     try {
+        // Check for existing preferences first
+        const { data: existingPrefs } = await supabase
+            .from('user_preferences')
+            .select('species')
+            .eq('user_id', currentUser.id)
+            .eq('state', state)
+            .in('species', selectedSpecies);
+
+        if (existingPrefs && existingPrefs.length > 0) {
+            const existingSpecies = existingPrefs.map(p => p.species).join(', ');
+            alert(`You already have reminders set for: ${existingSpecies}\n\nTo change the notification timing, use the "Edit" button next to the existing reminder.`);
+            return;
+        }
+
         // Prepare array of preferences to insert
         const preferences = selectedSpecies.map(species => ({
             user_id: currentUser.id,
@@ -431,15 +446,9 @@ document.getElementById('add-preference-btn').addEventListener('click', async ()
             .from('user_preferences')
             .insert(preferences);
 
-        if (error) {
-            if (error.code === '23505') { // Unique constraint violation
-                alert('One or more of these reminders already exist. Duplicates were skipped.');
-            } else {
-                throw error;
-            }
-        } else {
-            alert(`${selectedSpecies.length} reminder(s) added!`);
-        }
+        if (error) throw error;
+
+        alert(`${selectedSpecies.length} reminder(s) added!`);
 
         await loadUserPreferences();
 

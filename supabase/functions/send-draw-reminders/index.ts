@@ -20,82 +20,82 @@ serve(async (req) => {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
-    // Hunting data (same as script.js)
+    // Hunting data (same as script.js) - using lowercase state names to match UI
     const huntingData = [
       // Wyoming
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Elk", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Deer", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Moose", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Antelope", deadline: "June 1, 2026", results: "July 15, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Bighorn Sheep-Desert", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Bighorn Sheep-Rocky Mtn", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Mountain Goat", deadline: "January 31, 2026", results: "March 31, 2026" },
-      { state: "Wyoming", stateDisplay: "Wyoming", species: "Bison", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Elk", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Deer", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Moose", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Antelope", deadline: "June 1, 2026", results: "July 15, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Bighorn Sheep-Desert", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Bighorn Sheep-Rocky Mtn", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Mountain Goat", deadline: "January 31, 2026", results: "March 31, 2026" },
+      { state: "wyoming", stateDisplay: "Wyoming", species: "Bison", deadline: "January 31, 2026", results: "March 31, 2026" },
 
       // Idaho
-      { state: "Idaho", stateDisplay: "Idaho", species: "Elk", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Deer", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Moose", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Antelope", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Fall Bear", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 30, 2026", results: "June 1, 2026" },
-      { state: "Idaho", stateDisplay: "Idaho", species: "Mountain Goat", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Elk", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Deer", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Moose", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Antelope", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Fall Bear", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 30, 2026", results: "June 1, 2026" },
+      { state: "idaho", stateDisplay: "Idaho", species: "Mountain Goat", deadline: "April 30, 2026", results: "June 1, 2026" },
 
       // Montana
-      { state: "Montana", stateDisplay: "Montana", species: "Elk", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Deer", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Moose", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Antelope", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Bighorn Sheep-Desert", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Bighorn Sheep-Rocky Mtn", deadline: "March 15, 2026", results: "May 1, 2026" },
-      { state: "Montana", stateDisplay: "Montana", species: "Mountain Goat", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Elk", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Deer", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Moose", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Antelope", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Bighorn Sheep-Desert", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Bighorn Sheep-Rocky Mtn", deadline: "March 15, 2026", results: "May 1, 2026" },
+      { state: "montana", stateDisplay: "Montana", species: "Mountain Goat", deadline: "March 15, 2026", results: "May 1, 2026" },
 
       // Nevada
-      { state: "Nevada", stateDisplay: "Nevada", species: "Elk", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "Nevada", stateDisplay: "Nevada", species: "Deer", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "Nevada", stateDisplay: "Nevada", species: "Antelope", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "Nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Desert", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "Nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Rocky Mtn", deadline: "March 10, 2026", results: "May 20, 2026" },
-      { state: "Nevada", stateDisplay: "Nevada", species: "Mountain Goat", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Elk", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Deer", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Antelope", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Desert", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Bighorn Sheep-Rocky Mtn", deadline: "March 10, 2026", results: "May 20, 2026" },
+      { state: "nevada", stateDisplay: "Nevada", species: "Mountain Goat", deadline: "March 10, 2026", results: "May 20, 2026" },
 
       // Arizona
-      { state: "Arizona", stateDisplay: "Arizona", species: "Elk", deadline: "June 10, 2026", results: "July 1, 2026" },
-      { state: "Arizona", stateDisplay: "Arizona", species: "Deer", deadline: "June 10, 2026", results: "July 1, 2026" },
-      { state: "Arizona", stateDisplay: "Arizona", species: "Antelope", deadline: "June 10, 2026", results: "July 1, 2026" },
-      { state: "Arizona", stateDisplay: "Arizona", species: "Bighorn Sheep-Desert", deadline: "June 10, 2026", results: "July 1, 2026" },
-      { state: "Arizona", stateDisplay: "Arizona", species: "Bighorn Sheep-Rocky Mtn", deadline: "June 10, 2026", results: "July 1, 2026" },
-      { state: "Arizona", stateDisplay: "Arizona", species: "Bison", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Elk", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Deer", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Antelope", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Bighorn Sheep-Desert", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Bighorn Sheep-Rocky Mtn", deadline: "June 10, 2026", results: "July 1, 2026" },
+      { state: "arizona", stateDisplay: "Arizona", species: "Bison", deadline: "June 10, 2026", results: "July 1, 2026" },
 
       // New Mexico
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Elk", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Deer", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Barbary Sheep (Aoudad)", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Pronghorn", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Ibex", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Bighorn Sheep-Desert", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
-      { state: "New Mexico", stateDisplay: "New Mexico", species: "Oryx", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Elk", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Deer", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Barbary Sheep (Aoudad)", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Pronghorn", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Ibex", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Bighorn Sheep-Desert", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
+      { state: "newmexico", stateDisplay: "New Mexico", species: "Oryx", deadline: "March 18, 2026 - 5pm MDT", results: "April 22, 2026" },
 
       // Colorado
-      { state: "Colorado", stateDisplay: "Colorado", species: "Elk", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Deer", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Moose", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Antelope", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Bighorn Sheep-Desert", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 1, 2026", results: "June 1, 2026" },
-      { state: "Colorado", stateDisplay: "Colorado", species: "Mountain Goat", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Elk", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Deer", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Moose", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Antelope", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Bighorn Sheep-Desert", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 1, 2026", results: "June 1, 2026" },
+      { state: "colorado", stateDisplay: "Colorado", species: "Mountain Goat", deadline: "April 1, 2026", results: "June 1, 2026" },
 
       // Utah
-      { state: "Utah", stateDisplay: "Utah", species: "Elk", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Deer", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Moose", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Antelope", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Bighorn Sheep-Desert", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Mountain Goat", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Bison", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Turkey", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Swan", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "Utah", stateDisplay: "Utah", species: "Sportsman Permits", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Elk", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Deer", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Moose", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Antelope", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Bighorn Sheep-Desert", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Bighorn Sheep-Rocky Mtn", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Mountain Goat", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Bison", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Turkey", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Swan", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Sportsman Permits", deadline: "April 23, 2026", results: "May 31, 2026" },
     ]
 
     // Parse date helper (handles time annotations)
@@ -104,12 +104,12 @@ serve(async (req) => {
       return new Date(datePortion)
     }
 
-    // Get all users with email notifications enabled AND active subscription
+    // Get all users with email notifications enabled (PAYWALL TEMPORARILY DISABLED)
     const { data: profiles, error: profileError } = await supabase
       .from('user_profiles')
       .select('id, subscription_status')
       .eq('email_notifications_enabled', true)
-      .in('subscription_status', ['active', 'canceled'])
+      // .in('subscription_status', ['active', 'canceled']) // TEMPORARILY DISABLED
 
     if (profileError) throw profileError
 
@@ -164,10 +164,10 @@ serve(async (req) => {
 
             // Only add reminder if it hasn't been sent before
             if (!existingReminder) {
-              if (!remindersByState[hunt.state]) {
-                remindersByState[hunt.state] = []
+              if (!remindersByState[hunt.stateDisplay]) {
+                remindersByState[hunt.stateDisplay] = []
               }
-              remindersByState[hunt.state].push({
+              remindersByState[hunt.stateDisplay].push({
                 species: hunt.species,
                 deadline: hunt.deadline,
                 daysUntil,
@@ -180,8 +180,8 @@ serve(async (req) => {
 
       // Send email if there are reminders
       if (Object.keys(remindersByState).length > 0) {
-        // State URLs for apply now links
-        const stateUrls: Record<string, string> = {
+        // State URLs for apply now links (using stateDisplay for lookup)
+        const stateUrlsByDisplay: Record<string, string> = {
           'Wyoming': 'https://wgfapps.wyo.gov/LoginPortal/Login1.aspx?return=http%3A//wgfd.wyo.gov/login-callback',
           'Montana': 'https://fwp.mt.gov/buyandapply',
           'Nevada': 'https://nevada.licensing.app/',
@@ -214,7 +214,7 @@ serve(async (req) => {
           remindersList += `</ul>`
 
           // Add apply button for this state
-          const stateUrl = stateUrls[state] || 'https://drawtracker.com'
+          const stateUrl = stateUrlsByDisplay[state] || 'https://drawtracker.com'
           remindersList += `
             <div style="margin-top: 12px;">
               <a href="${stateUrl}" style="display: inline-block; padding: 10px 24px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px;">Apply Now for ${state} →</a>

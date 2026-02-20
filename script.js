@@ -440,8 +440,8 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Sportsman Permits",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "November 18, 2025 - 11pm MST",
+        drawResults: "November 26, 2025"
     }
 ];
 

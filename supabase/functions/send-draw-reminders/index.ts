@@ -95,7 +95,7 @@ serve(async (req) => {
       { state: "utah", stateDisplay: "Utah", species: "Bison", deadline: "April 23, 2026", results: "May 31, 2026" },
       { state: "utah", stateDisplay: "Utah", species: "Turkey", deadline: "April 23, 2026", results: "May 31, 2026" },
       { state: "utah", stateDisplay: "Utah", species: "Swan", deadline: "April 23, 2026", results: "May 31, 2026" },
-      { state: "utah", stateDisplay: "Utah", species: "Sportsman Permits", deadline: "April 23, 2026", results: "May 31, 2026" },
+      { state: "utah", stateDisplay: "Utah", species: "Sportsman Permits", deadline: "November 18, 2025 - 11pm MST", results: "November 26, 2025" },
     ]
 
     // Parse date helper (handles time annotations)

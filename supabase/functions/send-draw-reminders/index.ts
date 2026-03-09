@@ -149,8 +149,8 @@ serve(async (req) => {
           const deadline = parseDate(hunt.deadline)
           const daysUntil = Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 
-          // Check if we should send reminder
-          if (daysUntil === pref.notify_days_before) {
+          // Check if we should send reminder (2-day window to catch missed cron runs)
+          if (daysUntil <= pref.notify_days_before && daysUntil >= pref.notify_days_before - 1) {
             // Check if this reminder was already sent
             const { data: existingReminder } = await supabase
               .from('sent_reminders')

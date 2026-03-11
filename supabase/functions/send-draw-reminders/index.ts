@@ -303,7 +303,7 @@ serve(async (req) => {
                 .from('sent_reminders')
                 .insert({
                   user_id: profile.id,
-                  state: state,
+                  state: state.toLowerCase(),
                   species: reminder.species,
                   deadline: reminder.deadline,
                   notify_days_before: reminder.notify_days_before

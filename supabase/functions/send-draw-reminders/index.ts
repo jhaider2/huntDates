@@ -156,7 +156,7 @@ serve(async (req) => {
               .from('sent_reminders')
               .select('id')
               .eq('user_id', profile.id)
-              .eq('state', hunt.state)
+              .eq('state', hunt.stateDisplay)
               .eq('species', hunt.species)
               .eq('deadline', hunt.deadline)
               .eq('notify_days_before', pref.notify_days_before)

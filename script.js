@@ -115,7 +115,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Elk",
         applicationDeadline: "December 15, 2026",
-        drawResults: ""Early January 2027 (exact date TBD)3721
+        drawResults: "Early January 2027 (exact date TBD)"
     },
     {
         state: "idaho",
@@ -123,7 +123,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Deer",
         applicationDeadline: "December 15, 2026",
-        drawResults: ""Early January 2027 (exact date TBD)3987
+        drawResults: "Early January 2027 (exact date TBD)"
     },
     {
         state: "idaho",
@@ -131,7 +131,7 @@ const huntingData = [
         residency: "Non-Resident",
         species: "Whitetail Deer",
         applicationDeadline: "December 15, 2026",
-        drawResults: ""Early January 2027 (exact date TBD)4254
+        drawResults: "Early January 2027 (exact date TBD)"
     },
 
     // Idaho (Non-Resident) - Controlled Hunts
@@ -441,7 +441,7 @@ const huntingData = [
         residency: "Resident",
         species: "Sportsman Permits",
         applicationDeadline: "November 10, 2026 - 11pm MST",
-        drawResults: ""November 19, 202611887
+        drawResults: "November 19, 2026"
     }
 ];
 

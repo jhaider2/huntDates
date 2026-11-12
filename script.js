@@ -561,7 +561,7 @@ function displayDeadlines() {
         let actionButton = '';
 
         if (!hasDeadline) {
-            headerClass = '';
+            headerClass = 'header-pending';
             countdownText = '';
             actionButton = `<div class="status-message awaiting">2027 dates not yet announced — <a href="${stateUrls[item.state]}" target="_blank" rel="noopener noreferrer">Check official application site</a></div>`;
         } else if (resultsPassed) {

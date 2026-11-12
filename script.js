@@ -363,11 +363,32 @@ const huntingData = [
     },
 
     // Utah (Resident)
+    // Utah 2027 additional draw application periods
+    {
+        state: "utah",
+        stateName: "Utah - Antlerless",
+        residency: "Resident",
+        species: "Antlerless",
+        applicationOpens: "June 8, 2027",
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
+    },
+    {
+        state: "utah",
+        stateName: "Utah - Crane / Grouse",
+        residency: "Resident",
+        species: "Crane / Grouse",
+        applicationOpens: "July 13, 2027",
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
+    },
+
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Elk",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -376,6 +397,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Deer",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -384,6 +406,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Moose",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -392,6 +415,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Antelope",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -400,6 +424,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Black Bear",
+        applicationOpens: "February 2, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -408,6 +433,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Bighorn Sheep-Rocky Mtn",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -416,6 +442,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Bighorn Sheep-Desert",
+        applicationOpens: "March 18, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -432,6 +459,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Swan",
+        applicationOpens: "July 13, 2027",
         applicationDeadline: "Pending official 2027 announcement",
         drawResults: "Pending official 2027 announcement"
     },
@@ -440,6 +468,7 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Sportsman Permits",
+        applicationOpens: "October 20, 2026",
         applicationDeadline: "November 10, 2026 - 11pm MST",
         drawResults: "November 19, 2026"
     }
@@ -594,6 +623,10 @@ function displayDeadlines() {
                 <span class="residency-badge">${item.residency}</span>
             </div>
             <div class="card-body">
+                ${item.applicationOpens ? `<div class="deadline-item">
+                    <span class="label">Application Opens:</span>
+                    <span class="date">${item.applicationOpens}</span>
+                </div>` : ''}
                 <div class="deadline-item">
                     <span class="label">Application Deadline:</span>
                     <span class="date">${item.applicationDeadline}${countdownText}</span>

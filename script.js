@@ -448,7 +448,7 @@ const huntingData = [
 // Helper function to parse date strings.
 function parseDate(dateString) {
     // Never interpret an unpublished date or an approximate result window as a deadline.
-    if (!dateString || !/^[A-Za-z]+ \\d{1,2}, \\d{4}/.test(dateString)) return null;
+    if (!dateString || !/^[A-Za-z]+ \d{1,2}, \d{4}/.test(dateString)) return null;
     const datePortion = dateString.split(' - ')[0];
     const parsed = new Date(datePortion);
     return Number.isNaN(parsed.getTime()) ? null : parsed;

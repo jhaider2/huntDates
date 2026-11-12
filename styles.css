@@ -239,6 +239,11 @@ header h1 {
     background: #9b59b6;
 }
 
+/* 2027 application dates not yet published */
+.card-header.header-pending {
+    background: #526477;
+}
+
 .card-header h2 {
     font-size: 1.3rem;
     font-weight: 600;

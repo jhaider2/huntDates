@@ -12,7 +12,7 @@ const stateUrls = {
     kansas: "https://license.gooutdoorskansas.gov/Licensing/CustomerLookup.aspx"
 };
 //comment
-// Hunting deadline data for 2026
+// 2027 hunting season dates. Unpublished dates must remain pending; do not carry forward old dates.
 const huntingData = [
     // Wyoming (Non-Resident)
     {
@@ -20,48 +20,48 @@ const huntingData = [
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "February 2, 2026",
-        drawResults: "May 21, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "June 1, 2026",
-        drawResults: "June 18, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Whitetail Deer",
-        applicationDeadline: "June 1, 2026",
-        drawResults: "June 18, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Moose",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "May 21, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Antelope",
-        applicationDeadline: "June 1, 2026",
-        drawResults: "June 18, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "wyoming",
         stateName: "Wyoming",
         residency: "Non-Resident",
         species: "Bighorn Sheep-Rocky Mtn",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "May 21, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Montana (Non-Resident)
@@ -70,24 +70,24 @@ const huntingData = [
         stateName: "Montana",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "April 1, 2026",
-        drawResults: "April 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "montana",
         stateName: "Montana",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "April 1, 2026",
-        drawResults: "April 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "montana",
         stateName: "Montana",
         residency: "Non-Resident",
         species: "Whitetail Deer",
-        applicationDeadline: "April 1, 2026",
-        drawResults: "April 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Nevada (Non-Resident)
@@ -96,16 +96,16 @@ const huntingData = [
         stateName: "Nevada",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "May 13, 2026 - 11pm PDT",
-        drawResults: "May 29, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "nevada",
         stateName: "Nevada",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "May 13, 2026 - 11pm PDT",
-        drawResults: "May 29, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Idaho (Non-Resident) - General Season
@@ -114,24 +114,24 @@ const huntingData = [
         stateName: "Idaho - General Season",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "December 15, 2025",
-        drawResults: "January 6, 2026"
+        applicationDeadline: "December 15, 2026",
+        drawResults: ""Early January 2027 (exact date TBD)3721
     },
     {
         state: "idaho",
         stateName: "Idaho - General Season",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "December 15, 2025",
-        drawResults: "January 6, 2026"
+        applicationDeadline: "December 15, 2026",
+        drawResults: ""Early January 2027 (exact date TBD)3987
     },
     {
         state: "idaho",
         stateName: "Idaho - General Season",
         residency: "Non-Resident",
         species: "Whitetail Deer",
-        applicationDeadline: "December 15, 2025",
-        drawResults: "January 6, 2026"
+        applicationDeadline: "December 15, 2026",
+        drawResults: ""Early January 2027 (exact date TBD)4254
     },
 
     // Idaho (Non-Resident) - Controlled Hunts
@@ -140,72 +140,72 @@ const huntingData = [
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "June 5, 2026",
-        drawResults: "July 7, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "June 5, 2026",
-        drawResults: "July 7, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Whitetail Deer",
-        applicationDeadline: "June 5, 2026",
-        drawResults: "July 7, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Moose",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "June 1, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Antelope",
-        applicationDeadline: "June 5, 2026",
-        drawResults: "July 7, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Spring Bear",
         residency: "Non-Resident",
         species: "Black Bear",
-        applicationDeadline: "February 15, 2026",
-        drawResults: "March 10, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Fall Bear",
-        applicationDeadline: "June 5, 2026",
-        drawResults: "July 7, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Bighorn Sheep-Rocky Mtn",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "June 1, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "idaho",
         stateName: "Idaho - Controlled Hunts",
         residency: "Non-Resident",
         species: "Mountain Goat",
-        applicationDeadline: "April 30, 2026",
-        drawResults: "June 1, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Arizona (Non-Resident)
@@ -214,32 +214,32 @@ const huntingData = [
         stateName: "Arizona",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "February 3, 2026",
-        drawResults: "March 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "arizona",
         stateName: "Arizona",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "June 2, 2026",
-        drawResults: "June 25, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "arizona",
         stateName: "Arizona",
         residency: "Non-Resident",
         species: "Antelope",
-        applicationDeadline: "February 3, 2026",
-        drawResults: "March 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "arizona",
         stateName: "Arizona",
         residency: "Non-Resident",
         species: "Bighorn Sheep-Desert",
-        applicationDeadline: "June 2, 2026",
-        drawResults: "July 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // New Mexico (Non-Resident)
@@ -248,56 +248,56 @@ const huntingData = [
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Oryx",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Barbary Sheep (Aoudad)",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Pronghorn",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Ibex",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "newmexico",
         stateName: "New Mexico",
         residency: "Non-Resident",
         species: "Bighorn Sheep-Desert",
-        applicationDeadline: "March 18, 2026 - 5pm MDT",
-        drawResults: "April 22, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Colorado (Non-Resident)
@@ -306,32 +306,32 @@ const huntingData = [
         stateName: "Colorado",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "April 7, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "colorado",
         stateName: "Colorado",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "April 7, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "colorado",
         stateName: "Colorado",
         residency: "Non-Resident",
         species: "Moose",
-        applicationDeadline: "April 7, 2026",
-        drawResults: "May 27, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "colorado",
         stateName: "Colorado",
         residency: "Non-Resident",
         species: "Bighorn Sheep-Rocky Mtn",
-        applicationDeadline: "April 7, 2026",
-        drawResults: "May 27, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Oregon (Non-Resident)
@@ -340,16 +340,16 @@ const huntingData = [
         stateName: "Oregon",
         residency: "Non-Resident",
         species: "Elk",
-        applicationDeadline: "May 15, 2026",
-        drawResults: "June 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "oregon",
         stateName: "Oregon",
         residency: "Non-Resident",
         species: "Deer",
-        applicationDeadline: "May 15, 2026",
-        drawResults: "June 15, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Kansas (Non-Resident)
@@ -358,8 +358,8 @@ const huntingData = [
         stateName: "Kansas",
         residency: "Non-Resident",
         species: "Whitetail Deer",
-        applicationDeadline: "April 1, 2026",
-        drawResults: "June 1, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
 
     // Utah (Resident)
@@ -368,88 +368,90 @@ const huntingData = [
         stateName: "Utah",
         residency: "Resident",
         species: "Elk",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Deer",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Moose",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Antelope",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Black Bear",
-        applicationDeadline: "February 24, 2026",
-        drawResults: "March 5, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Bighorn Sheep-Rocky Mtn",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Bighorn Sheep-Desert",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Turkey",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Swan",
-        applicationDeadline: "April 23, 2026",
-        drawResults: "May 31, 2026"
+        applicationDeadline: "Pending official 2027 announcement",
+        drawResults: "Pending official 2027 announcement"
     },
     {
         state: "utah",
         stateName: "Utah",
         residency: "Resident",
         species: "Sportsman Permits",
-        applicationDeadline: "November 18, 2025 - 11pm MST",
-        drawResults: "November 26, 2025"
+        applicationDeadline: "November 10, 2026 - 11pm MST",
+        drawResults: ""November 19, 202611887
     }
 ];
 
 // Helper function to parse date strings.
 function parseDate(dateString) {
-    // Extract date portion if string contains time info (e.g., "March 18, 2026 - 5pm MDT")
+    // Never interpret an unpublished date or an approximate result window as a deadline.
+    if (!dateString || !/^[A-Za-z]+ \d{1,2}, \d{4}/.test(dateString)) return null;
     const datePortion = dateString.split(' - ')[0];
-    return new Date(datePortion);
+    const parsed = new Date(datePortion);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 // Helper function to check if a date has passed
@@ -457,7 +459,7 @@ function isPastDate(dateString) {
     const deadline = parseDate(dateString);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return deadline < today;
+    return deadline !== null && deadline < today;
 }
 
 // Helper function to calculate days until deadline
@@ -465,6 +467,7 @@ function getDaysUntil(dateString) {
     const deadline = parseDate(dateString);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    if (deadline === null) return null;
     const diffTime = deadline - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
@@ -533,19 +536,20 @@ function displayDeadlines() {
 
     // Apply hide expired filter
     if (hideExpired) {
-        filteredData = filteredData.filter(item => !isPastDate(item.drawResults));
+        filteredData = filteredData.filter(item => !parseDate(item.drawResults) || !isPastDate(item.drawResults));
     }
 
     // Apply sorting
     if (sortFilter === 'deadline') {
         filteredData.sort((a, b) => {
-            return parseDate(a.applicationDeadline) - parseDate(b.applicationDeadline);
+            return (parseDate(a.applicationDeadline)?.getTime() ?? Infinity) - (parseDate(b.applicationDeadline)?.getTime() ?? Infinity);
         });
     } else if (sortFilter === 'state') {
         filteredData.sort((a, b) => a.stateName.localeCompare(b.stateName));
     }
 
     filteredData.forEach(item => {
+        const hasDeadline = parseDate(item.applicationDeadline) !== null;
         const deadlinePassed = isPastDate(item.applicationDeadline);
         const resultsPassed = isPastDate(item.drawResults);
         const daysUntil = getDaysUntil(item.applicationDeadline);
@@ -556,7 +560,11 @@ function displayDeadlines() {
         let countdownText = '';
         let actionButton = '';
 
-        if (resultsPassed) {
+        if (!hasDeadline) {
+            headerClass = '';
+            countdownText = '';
+            actionButton = `<div class="status-message awaiting">2027 dates not yet announced — <a href="${stateUrls[item.state]}" target="_blank" rel="noopener noreferrer">Check official application site</a></div>`;
+        } else if (resultsPassed) {
             headerClass = 'header-expired';
             countdownText = ' (EXPIRED)';
             actionButton = '';

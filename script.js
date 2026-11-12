@@ -570,7 +570,10 @@ function displayDeadlines() {
     // Apply sorting
     if (sortFilter === 'deadline') {
         filteredData.sort((a, b) => {
-            return (parseDate(a.applicationDeadline)?.getTime() ?? Infinity) - (parseDate(b.applicationDeadline)?.getTime() ?? Infinity);
+            // Use the next known milestone: opening date when closing date is unpublished.
+            const nextDate = item => parseDate(item.applicationDeadline)?.getTime() ??
+                parseDate(item.applicationOpens)?.getTime() ?? Infinity;
+            return nextDate(a) - nextDate(b);
         });
     } else if (sortFilter === 'state') {
         filteredData.sort((a, b) => a.stateName.localeCompare(b.stateName));
@@ -583,15 +586,20 @@ function displayDeadlines() {
         const daysUntil = getDaysUntil(item.applicationDeadline);
         const isWithin30Days = daysUntil > 0 && daysUntil <= 30;
         const isAwaitingResults = deadlinePassed && !resultsPassed;
+        const opensIn = item.applicationOpens ? getDaysUntil(item.applicationOpens) : null;
+        const openingCountdown = opensIn === null ? '' :
+            opensIn > 0 ? ` (Opens in ${opensIn} day${opensIn === 1 ? '' : 's'})` :
+            opensIn === 0 ? ' (OPENS TODAY)' : ' (Opened)';
 
         let headerClass = '';
         let countdownText = '';
         let actionButton = '';
 
         if (!hasDeadline) {
-            headerClass = 'header-pending';
+            headerClass = opensIn !== null && opensIn >= 0 && opensIn <= 30 ? 'header-warning' : 'header-pending';
             countdownText = '';
-            actionButton = `<div class="status-message awaiting">2027 dates not yet announced — <a href="${stateUrls[item.state]}" target="_blank" rel="noopener noreferrer">Check official application site</a></div>`;
+            // An opening date is not a confirmed closing date. Never imply applications are open early.
+            actionButton = `<div class="status-message awaiting">Application deadline pending — <a href="${stateUrls[item.state]}" target="_blank" rel="noopener noreferrer">Check official application site</a></div>`;
         } else if (resultsPassed) {
             headerClass = 'header-expired';
             countdownText = ' (EXPIRED)';
@@ -624,7 +632,7 @@ function displayDeadlines() {
             <div class="card-body">
                 ${item.applicationOpens ? `<div class="deadline-item">
                     <span class="label">Application Opens:</span>
-                    <span class="date">${item.applicationOpens}</span>
+                    <span class="date">${item.applicationOpens}${openingCountdown}</span>
                 </div>` : ''}
                 <div class="deadline-item">
                     <span class="label">Application Deadline:</span>

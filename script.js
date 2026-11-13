@@ -862,6 +862,43 @@ const huntingData = [
     }
 ];
 
+// Render one card for matching resident/nonresident schedules.
+// Keep separate cards when a date, known eligibility, or schedule note differs.
+// Unpublished dates are not assumed to match; the combined card simply avoids
+// duplicate placeholders until each state's resident rules are verified.
+function combineMatchingSchedules(entries) {
+    const groups = new Map();
+    entries.forEach(item => {
+        const key = [item.state, item.stateName, item.species].join('|');
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(item);
+    });
+
+    const combined = [];
+    groups.forEach(group => {
+        const consumed = new Set();
+        group.forEach((item, index) => {
+            if (consumed.has(index)) return;
+            const counterpartIndex = group.findIndex((other, otherIndex) =>
+                otherIndex !== index &&
+                !consumed.has(otherIndex) &&
+                other.residency !== item.residency &&
+                other.applicationDeadline === item.applicationDeadline &&
+                other.drawResults === item.drawResults &&
+                (other.applicationOpens || '') === (item.applicationOpens || '') &&
+                (other.applicationNotes || '') === (item.applicationNotes || '')
+            );
+            if (counterpartIndex !== -1) {
+                consumed.add(counterpartIndex);
+                combined.push({ ...item, residency: null });
+            } else {
+                combined.push(item);
+            }
+        });
+    });
+    return combined;
+}
+
 // Helper function to parse date strings.
 function parseDate(dateString) {
     // Never interpret an unpublished date or an approximate result window as a deadline.
@@ -934,22 +971,16 @@ function updateSpeciesDropdown() {
 function displayDeadlines() {
     const stateFilter = document.getElementById('state-filter').value;
     const speciesFilter = document.getElementById('species-filter').value;
-    const residencyFilter = document.getElementById('residency-filter').value;
     const sortFilter = document.getElementById('sort-filter').value;
     const hideExpired = document.getElementById('hide-expired').checked;
     const container = document.getElementById('deadlines-container');
     container.innerHTML = '';
 
-    let filteredData = huntingData;
+    let filteredData = combineMatchingSchedules(huntingData);
 
     // Apply state filter
     if (stateFilter !== 'all') {
         filteredData = filteredData.filter(item => item.state === stateFilter);
-    }
-
-    // Filter residency independently of state so users can compare both schedules.
-    if (residencyFilter !== 'all') {
-        filteredData = filteredData.filter(item => item.residency === residencyFilter);
     }
 
     // Apply species filter
@@ -1022,7 +1053,7 @@ function displayDeadlines() {
         card.innerHTML = `
             <div class="card-header ${headerClass}">
                 <h2>${item.stateName} - ${item.species}</h2>
-                <span class="residency-badge">${item.residency}</span>
+                ${item.residency ? `<span class="residency-badge">${item.residency}</span>` : ''}
             </div>
             <div class="card-body">
                 ${item.applicationOpens ? `<div class="deadline-item">
@@ -1052,7 +1083,6 @@ function displayDeadlines() {
 // Event listeners for filters - only add if elements exist (for index.html)
 const stateFilter = document.getElementById('state-filter');
 const speciesFilter = document.getElementById('species-filter');
-const residencyFilter = document.getElementById('residency-filter');
 const sortFilter = document.getElementById('sort-filter');
 const hideExpired = document.getElementById('hide-expired');
 
@@ -1065,10 +1095,6 @@ if (stateFilter) {
 
 if (speciesFilter) {
     speciesFilter.addEventListener('change', displayDeadlines);
-}
-
-if (residencyFilter) {
-    residencyFilter.addEventListener('change', displayDeadlines);
 }
 
 if (sortFilter) {

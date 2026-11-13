@@ -1364,3 +1364,11 @@ footer a:hover {
     font-size: 1.1rem;
     margin: 0;
 }
+
+/* Official schedule context for dates that are not yet confirmed for 2027 */
+.date-note {
+    margin: 10px 0 16px;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #4b5563;
+}
